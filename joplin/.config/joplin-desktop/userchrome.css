@@ -1,0 +1,24 @@
+/* For styling the entire Joplin app (except the rendered Markdown, which is defined in `userstyle.css`) */
+:root {
+	--font-jetbrains: JetBrainsMono Nerd Font Mono;
+	--font-iosevka: Iosevka;
+	--font-size: 15px;
+}
+
+
+*,
+#joplin-container-body {
+	font-family: var(--font-iosevka) !important;
+	font-size: var(--font-size) !important;
+}
+
+span.cm-comment {
+	font-family: var(--font-iosevka) !important;
+	border-radius: 0 !important ;
+	border: 0 !important;
+}
+
+span.cm-jn-monospace {
+	font-family: var(--font-iosevka) !important;
+	border: 0 !important;
+}

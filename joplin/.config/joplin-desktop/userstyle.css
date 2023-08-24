@@ -1,0 +1,24 @@
+/* For styling the rendered Markdown */
+:root {
+	--font-jetbrains: JetBrainsMono Nerd Font Mono;
+	--font-iosevka: Iosevka;
+	--font-size: 15px;
+}
+
+body {
+	font-family: var(--font-iosevka) !important;
+	font-size: var(--font-size) !important;
+}
+
+code,
+pre {
+	font-family: var(--font-iosevka) !important;
+	border-radius: 0;
+}
+
+.code,
+.inline-code {
+	background: rgba(0, 76, 114, 0.08);
+	border: 0 !important;
+	border-radius: 0;
+}
