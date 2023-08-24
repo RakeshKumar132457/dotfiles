@@ -6,7 +6,7 @@ local general_config = require('lsp.general.config')
 lspconfig.tsserver.setup {
     on_attach = function(client, bufnr)
         -- Disable tsserver formatting if you plan to use prettier
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.document_formatting = false
         general_config.on_attach(client, bufnr)
     end,
     capabilities = general_config.capabilities,
