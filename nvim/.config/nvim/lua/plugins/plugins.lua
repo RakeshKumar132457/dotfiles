@@ -23,7 +23,8 @@ return {
 
     {
         'nvim-treesitter/nvim-treesitter',
-        event = 'VeryLazy',
+        lazy = true,
+        event = 'BufRead',
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
         },
@@ -39,6 +40,7 @@ return {
 
     {
         "folke/tokyonight.nvim",
+        event = 'VimEnter',
         lazy = false,
         priority = 1000,
         config = function()
@@ -56,19 +58,21 @@ return {
 
     {
         'lewis6991/gitsigns.nvim',
-        event = 'VeryLazy',
+        event = 'BufRead',
         config = true
     },
 
     {
         'nvim-lualine/lualine.nvim',
-        event = "VeryLazy",
+        event = "VimEnter",
+        lazy = true,
         config = true,
     },
 
     {
         'akinsho/bufferline.nvim',
-        event = "VeryLazy",
+        event = "VimEnter",
+        lazy = true,
         config = true,
     },
 
@@ -84,6 +88,7 @@ return {
 
     {
         'neovim/nvim-lspconfig',
+        after = 'nvim-lspconfig',
         lazy = false
     },
 
@@ -98,7 +103,8 @@ return {
 
     {
         "hrsh7th/nvim-cmp",
-        lazy = false,
+        lazy = true,
+        event = 'InsertEnter',
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             'hrsh7th/cmp-nvim-lua',
@@ -111,7 +117,8 @@ return {
 
     {
         "L3MON4D3/LuaSnip",
-        lazy = false,
+        lazy = true,
+        event = "InsertEnter",
         config = function()
             require('plugins.configs.luasnippets')
         end
@@ -119,7 +126,8 @@ return {
 
     {
         "ray-x/lsp_signature.nvim",
-        lazy = false,
+        lazy = true,
+        event = 'InsertEnter',
         config = function()
             require("lsp_signature").setup()
         end
@@ -127,6 +135,7 @@ return {
 
     {
         "glepnir/lspsaga.nvim",
+        lazy = true,
         event = "VeryLazy",
         config = function()
             require('plugins.configs.lspsaga').setup()
@@ -140,7 +149,8 @@ return {
 
     {
         'nvim-telescope/telescope.nvim',
-        lazy = false,
+        lazy = true,
+        cmd = 'Telescope',
         config = function()
             require('plugins.configs.telescope').setup()
         end,
@@ -157,14 +167,16 @@ return {
 
     {
         'ThePrimeagen/harpoon',
-        event = "VeryLazy", -- or another appropriate event
+        event = "BufRead", -- or another appropriate event
+        lazy = true,
         config = true,
         description = "Quickly navigate between marked files and terminals"
     },
 
     {
         'ggandor/leap.nvim',
-        event = 'VeryLazy',
+        event = 'BufRead',
+        lazy = true,
         config = function()
             require('leap').add_default_mappings()
         end
@@ -204,21 +216,23 @@ return {
 
     {
         "akinsho/toggleterm.nvim",
-        lazy = false,
+        lazy = true,
+        cmd = 'ToggleTerm',
         config = true,
         description = "Add terminal functionality within Neovim"
     },
 
     {
         "m4xshen/hardtime.nvim",
-        lazy = false,
+        lazy = true,
+        event = 'InsertEnter',
         opts = {},
         description = "Prevents repeated key presses (e.g., hjkl)"
     },
 
     {
         'j-hui/fidget.nvim',
-        event = "InsertEnter",
+        event = "BufRead",
         config = true,
         description = "Displays ongoing processes similar to the bottom bar in VSCode"
     },
@@ -232,7 +246,8 @@ return {
 
     {
         "folke/which-key.nvim",
-        keys = { 'g' },
+        lazy = true,
+        even = 'InsertLeave',
         config = true,
         description = "Suggests key mappings based on the initial key pressed"
     },
