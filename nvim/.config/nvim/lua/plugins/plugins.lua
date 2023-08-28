@@ -229,7 +229,7 @@ return {
     {
         "akinsho/toggleterm.nvim",
         lazy = true,
-        cmd = 'ToggleTerm',
+        event = 'BufRead',
         config = true,
         description = "Add terminal functionality within Neovim"
     },
