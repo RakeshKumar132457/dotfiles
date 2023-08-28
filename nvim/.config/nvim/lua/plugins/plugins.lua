@@ -94,7 +94,7 @@ return {
 
     {
         'williamboman/mason.nvim',
-        lazy = false,
+        cmd = { 'Mason', 'MasonInstal', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
         dependencies = {
             'williamboman/mason-lspconfig.nvim'
         },
@@ -224,8 +224,7 @@ return {
 
     {
         "m4xshen/hardtime.nvim",
-        lazy = true,
-        event = 'InsertEnter',
+        lazy = false,
         opts = {},
         description = "Prevents repeated key presses (e.g., hjkl)"
     },
@@ -246,8 +245,7 @@ return {
 
     {
         "folke/which-key.nvim",
-        lazy = true,
-        even = 'InsertLeave',
+        event = 'BufRead',
         config = true,
         description = "Suggests key mappings based on the initial key pressed"
     },
