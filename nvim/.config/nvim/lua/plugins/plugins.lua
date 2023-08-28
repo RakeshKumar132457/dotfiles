@@ -93,22 +93,23 @@ return {
     },
 
     {
+        'williamboman/mason-lspconfig.nvim',
+        lazy = false,
+        config = function()
+            require('mason-lspconfig').setup({
+                ensure_installed = {
+                    "clangd", "gopls", "lua_ls", "pyright", "rust_analyzer",
+                    "tsserver"
+                }
+            })
+        end,
+    },
+
+    {
         'williamboman/mason.nvim',
         lazy = false,
-        -- cmd = { 'Mason', 'MasonInstal', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
-        {
-            'williamboman/mason.nvim',
-            config = function()
-                require('williamboman/mason-lspconfig.nvim').setup({
-                    ensure_installed = {
-                        "clangd", "gopls", "lua-language-server", "pyright", "rust-analyzer",
-                        "typescript-language-server"
-                    }
-                })
-            end,
-            requires = {
-                'williamboman/mason-lspconfig.nvim'
-            }
+        dependencies = {
+            'williamboman/mason-lspconfig.nvim'
         },
         config = true
     },
