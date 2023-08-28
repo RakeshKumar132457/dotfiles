@@ -93,6 +93,15 @@ return {
     },
 
     {
+        'williamboman/mason.nvim',
+        lazy = false,
+        dependencies = {
+            'williamboman/mason-lspconfig.nvim'
+        },
+        config = true
+    },
+
+    {
         'williamboman/mason-lspconfig.nvim',
         lazy = false,
         config = function()
@@ -104,16 +113,6 @@ return {
             })
         end,
     },
-
-    {
-        'williamboman/mason.nvim',
-        lazy = false,
-        dependencies = {
-            'williamboman/mason-lspconfig.nvim'
-        },
-        config = true
-    },
-
     {
         "hrsh7th/nvim-cmp",
         lazy = true,
