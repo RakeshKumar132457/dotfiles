@@ -94,25 +94,15 @@ return {
 
     {
         'williamboman/mason.nvim',
-        lazy = false,
+        lazy = false, -- or true, depending on your needs
+        config = function()
+            require('plugins.configs.mason').setup()
+        end,
         dependencies = {
             'williamboman/mason-lspconfig.nvim'
         },
-        config = true
     },
 
-    {
-        'williamboman/mason-lspconfig.nvim',
-        lazy = false,
-        config = function()
-            require('mason-lspconfig').setup({
-                ensure_installed = {
-                    "clangd", "gopls", "lua_ls", "pyright", "rust_analyzer",
-                    "tsserver"
-                }
-            })
-        end,
-    },
     {
         "hrsh7th/nvim-cmp",
         lazy = true,
@@ -148,7 +138,7 @@ return {
     {
         "glepnir/lspsaga.nvim",
         lazy = true,
-        event = "VeryLazy",
+        event = "BufRead",
         config = function()
             require('plugins.configs.lspsaga').setup()
         end,
