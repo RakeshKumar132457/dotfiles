@@ -69,7 +69,7 @@ function M.setup()
         symbol_in_winbar = {
             enable = true,
             separator = "  ",
-            hide_keyword = true,
+            hide_keyword = false,
             show_file = true,
             folder_level = 2,
             respect_root = false,
