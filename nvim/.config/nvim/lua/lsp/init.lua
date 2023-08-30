@@ -11,6 +11,7 @@ local sumneko_lua = require('lsp.servers.sumneko_lua')
 -- local rust_analyzer = require('lsp.servers.rust_analyzer')
 local pyright = require('lsp.servers.pyright')
 local tsserver = require('lsp.servers.tsserver')
+local html = require('lsp.servers.html')
 
 return {
     -- General configurations and utilities
@@ -24,4 +25,5 @@ return {
     -- rust_analyzer = rust_analyzer,
     pyright = pyright,
     tsserver = tsserver,
+    html = html
 }
