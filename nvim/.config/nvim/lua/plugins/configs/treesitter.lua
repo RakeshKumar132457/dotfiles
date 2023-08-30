@@ -28,7 +28,7 @@ function treesitter_config.setup()
     -- List of languages to ensure are installed for Tree-sitter
     local supported_languages = {
         "bash", "c", "cpp", "css", "go", "html", "java", "javascript", "json",
-        "lua", "markdown", "python", "rust", "scss", "tsx", "jsx", "typescript"
+        "lua", "markdown", "python", "rust", "scss", "tsx", "typescript"
     }
 
     -- ============================
