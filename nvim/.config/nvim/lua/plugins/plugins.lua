@@ -81,6 +81,11 @@ return {
         lazy = false
     },
 
+    {
+        "sindrets/diffview.nvim",
+        lazy = false
+    },
+
     -- ========================
     -- LSP and Autocompletion
     -- Plugins related to LSP, autocompletion, and code intelligence
@@ -234,7 +239,12 @@ return {
     {
         'j-hui/fidget.nvim',
         event = "BufRead",
-        config = true,
+        opts = {
+            text = {
+                spinner = 'dots_pulse',
+                done = '󰄭 '
+            },
+        },
         description = "Displays ongoing processes similar to the bottom bar in VSCode"
     },
 
@@ -252,4 +262,22 @@ return {
         description = "Suggests key mappings based on the initial key pressed"
     },
 
+    --[[ {
+        'folke/noice.nvim',
+        lazy = false,
+        opts = {
+            cmdline = {
+                view = 'cmdline'
+            }
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    }
+    ]]
 }
