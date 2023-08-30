@@ -149,6 +149,14 @@ return {
         end,
     },
 
+    {
+        "simrat39/rust-tools.nvim",
+        config = function()
+            require('plugins.configs.rust_tools').setup()
+        end,
+        lazy = false
+    },
+
     -- ========================
     -- Navigation and Search
     -- Plugins that assist with navigating files and searching content
