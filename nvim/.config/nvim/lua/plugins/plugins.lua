@@ -143,7 +143,7 @@ return {
     {
         "glepnir/lspsaga.nvim",
         lazy = true,
-        event = "BufRead",
+        event = "BufEnter",
         config = function()
             require('plugins.configs.lspsaga').setup()
         end,
@@ -232,7 +232,7 @@ return {
     {
         "akinsho/toggleterm.nvim",
         lazy = true,
-        event = 'BufRead',
+        event = 'BufEnter',
         config = true,
         description = "Add terminal functionality within Neovim"
     },
