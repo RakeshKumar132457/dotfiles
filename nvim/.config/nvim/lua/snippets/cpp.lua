@@ -1,32 +1,47 @@
 -- ~/.config/nvim/lua/snippets/cpp_snippets.lua
 
 local luasnip = require("luasnip")
-local fmt = require("luasnip.extras.fmt").fmt
+local format = require('luasnip.extras.fmt').fmt
+local repeat_node = require('luasnip.extras').rep
+
 
 return {
     -- Init snippet: A template for a basic C++ program structure
-    luasnip.snippet('basic_structure', {
-        luasnip.insert_node(1, "code_inside_main")
-    }),
+    luasnip.snippet('init', format(
+        [==[
+            #include <bits/stdc++.h>
+
+            using namespace std;
+
+            int main(){{
+                ios_base::sync_with_stdio(false);
+                cin.tie(nullptr);
+
+                {}
+
+                return 0;
+            }}
+        ]==], { luasnip.insert_node(1) }
+    )),
 
     -- Comment snippet: A template for a block comment
-    luasnip.snippet('block_comment', {
-        luasnip.insert_node(1, "comment_content")
-    }),
+    luasnip.snippet('cmt', format(
+        [[
+            /**
+             * {}
+             */
+        ]], { luasnip.insert_node(1) }
+    )),
 
     -- Object creation snippet: A shorthand for creating a new object using dynamic memory
-    luasnip.snippet('dynamic_object_creation', fmt(
+    luasnip.snippet('obj', format(
         [[
-            {1} *{2} = new {3}();
-        ]], {
-            luasnip.insert_node(1, "object_type"),
-            luasnip.insert_node(2, "object_name"),
-            luasnip.insert_node(3, "constructor_arguments")
-        }
+            {1} *{2}= new {3}();
+        ]], { luasnip.insert_node(1), luasnip.insert_node(2), repeat_node(1) }
     )),
 
     -- Debug macro snippet: A macro for debugging variables
-    luasnip.snippet('debug_macro', fmt(
+    luasnip.snippet('debug', format(
         [[
         #define dbg(v) \
             cout << "Line(" << __LINE__ << ") -> " << #v << " = " << (v) << endl;
@@ -34,7 +49,7 @@ return {
     )),
 
     -- File input-output snippet: A shorthand for reading from and writing to files
-    luasnip.snippet('file_io', fmt(
+    luasnip.snippet('inp', format(
         [[
             ifstream fin("input.txt");
             ofstream fout("output.txt");
@@ -42,7 +57,7 @@ return {
     )),
 
     -- Test case array processing snippet: A template for reading test cases from a file and processing them
-    luasnip.snippet('test_case_array_processing', fmt(
+    luasnip.snippet('tcarr', format(
         [[
             string fileLine;
             while (getline(fin, fileLine)) {{
