@@ -33,7 +33,7 @@ M.setup = function(on_attach)
     vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
 
     -- Format document
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
 
 
     -- Workspace symbol search
