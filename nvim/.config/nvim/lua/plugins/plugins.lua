@@ -157,6 +157,14 @@ return {
         lazy = false
     },
 
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        lazy = false,
+        config = function()
+            require('plugins.configs.null_ls').setup()
+        end
+    },
+
     -- ========================
     -- Navigation and Search
     -- Plugins that assist with navigating files and searching content
