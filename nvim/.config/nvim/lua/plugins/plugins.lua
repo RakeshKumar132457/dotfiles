@@ -24,7 +24,7 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         lazy = true,
-        event = 'BufRead',
+        event = 'BufEnter',
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
         },
@@ -40,8 +40,8 @@ return {
 
     {
         "folke/tokyonight.nvim",
-        event = 'VimEnter',
-        lazy = false,
+        event = 'BufEnter',
+        lazy = true,
         priority = 1000,
         config = function()
             vim.cmd([[colorscheme tokyonight]])
@@ -71,19 +71,22 @@ return {
 
     {
         'akinsho/bufferline.nvim',
-        event = "VimEnter",
+        event = "BufRead",
         lazy = true,
         config = true,
     },
 
     {
         'nvim-tree/nvim-web-devicons',
-        lazy = false
+        lazy = true,
+        event = 'BufRead'
     },
 
     {
         "sindrets/diffview.nvim",
-        lazy = false
+        lazy = true,
+        cmd = { 'DiffviewOpen', 'DiffviewLog', 'DiffviewFileHistory', 'DiffviewFocusFiles', 'DiffviewClose',
+            'DiffviewToggleFiles' }
     },
 
     -- ========================
@@ -93,8 +96,8 @@ return {
 
     {
         'neovim/nvim-lspconfig',
-        after = 'nvim-lspconfig',
-        lazy = false
+        lazy = false,
+        event = 'BufEnter'
     },
 
     {
@@ -159,7 +162,8 @@ return {
 
     {
         "jose-elias-alvarez/null-ls.nvim",
-        lazy = false,
+        lazy = true,
+        event = "InsertEnter",
         config = function()
             require('plugins.configs.null_ls').setup()
         end
@@ -278,7 +282,7 @@ return {
         description = "Suggests key mappings based on the initial key pressed"
     },
 
-    --[[ {
+    {
         'folke/noice.nvim',
         lazy = false,
         opts = {
@@ -295,5 +299,5 @@ return {
             "rcarriga/nvim-notify",
         }
     }
-    ]]
+
 }
