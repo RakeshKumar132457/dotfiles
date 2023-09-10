@@ -282,7 +282,7 @@ return {
         description = "Suggests key mappings based on the initial key pressed"
     },
 
-    {
+    --[[ {
         'folke/noice.nvim',
         lazy = false,
         opts = {
@@ -298,6 +298,6 @@ return {
             --   If not available, we use `mini` as the fallback
             "rcarriga/nvim-notify",
         }
-    }
+    } ]]
 
 }
