@@ -28,6 +28,21 @@ local function load_snippets_from_directory()
 
             -- Add the loaded snippets to Luasnip using the add_snippets function
             luasnip.add_snippets(filetype, snippets_for_filetype)
+
+            -- Special case: if the filetype is "javascript", also add the snippets to other related filetypes
+            if filetype == "javascript" then
+                local related_filetypes = {
+                    "javascriptreact",
+                    "javascript.jsx",
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx"
+                }
+
+                for _, related_filetype in ipairs(related_filetypes) do
+                    luasnip.add_snippets(related_filetype, snippets_for_filetype)
+                end
+            end
         end
     end
 end
