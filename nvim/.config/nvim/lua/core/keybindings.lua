@@ -102,6 +102,17 @@ vim.keymap.set('n', '<leader>hp', function() require('harpoon.ui').nav_file(-1) 
     { desc = 'Harpoon: Go to previous marked file' })
 
 
+-- Trouble keybindings
+vim.keymap.set('n', '<leader>xx', function() require("trouble").open() end, { desc = '[T]rouble overview' })
+vim.keymap.set('n', '<leader>xw', function() require("trouble").open("workspace_diagnostics") end,
+    { desc = '[T]rouble workspace diagnostics' })
+vim.keymap.set('n', '<leader>xd', function() require("trouble").open("document_diagnostics") end,
+    { desc = '[T]rouble document diagnostics' })
+vim.keymap.set('n', '<leader>xq', function() require("trouble").open("quickfix") end, { desc = '[T]rouble quickfix' })
+vim.keymap.set('n', '<leader>xl', function() require("trouble").open("loclist") end, { desc = '[T]rouble loclist' })
+vim.keymap.set('n', 'gR', function() require("trouble").open("lsp_references") end, { desc = '[T]rouble LSP references' })
+
+
 -- ==========================================
 -- Personal Keybindings
 -- ==========================================

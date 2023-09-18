@@ -269,7 +269,9 @@ return {
     {
         "m4xshen/hardtime.nvim",
         lazy = false,
-        opts = {},
+        opts = {
+            disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "alpha" },
+        },
         description = "Prevents repeated key presses (e.g., hjkl)"
     },
 
