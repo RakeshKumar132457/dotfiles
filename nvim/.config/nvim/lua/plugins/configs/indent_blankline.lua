@@ -5,6 +5,7 @@ local indent_blankline_setting = {}
 function indent_blankline_setting.setup()
     -- Enable showing the current context in the indent-blankline
     vim.g.indent_blankline_show_current_context = true
+    vim.g.indent_blankline_buftype_exclude = { 'dashboard', 'alpha' }
 
     -- Setting up the indent_blankline plugin
     require("indent_blankline").setup {
@@ -20,6 +21,12 @@ function indent_blankline_setting.setup()
 
         -- Enable underlining the start of the current context in the indent-blankline
         show_current_context_start = true,
+
+        -- Disable intdent_blankline for following buffer types
+        buftype_exclude = { 'terminal', 'nofile', 'NvimTree' },
+
+        -- Disable intdent_blankline for following file types
+        filetype_exclude = { 'help', 'packer', 'startify', 'NvimTree', 'alpha' },
 
         -- Uncomment the line below to use Treesitter for determining indentation levels
         -- use_treesitter = true,

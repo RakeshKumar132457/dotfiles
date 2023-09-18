@@ -89,6 +89,14 @@ return {
             'DiffviewToggleFiles' }
     },
 
+    {
+        'goolord/alpha-nvim',
+        lazy = false,
+        config = function()
+            require('plugins.configs.alpha').setup()
+        end
+    },
+
     -- ========================
     -- LSP and Autocompletion
     -- Plugins related to LSP, autocompletion, and code intelligence
@@ -167,6 +175,15 @@ return {
         config = function()
             require('plugins.configs.null_ls').setup()
         end
+    },
+
+    {
+        "folke/trouble.nvim",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
     },
 
     -- ========================
