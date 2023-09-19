@@ -21,7 +21,7 @@ M.setup = function()
         alpha_theme.button("r", " " .. " Open recent", ":Telescope oldfiles<CR>"),
         alpha_theme.button("w", " " .. " Search for text", ":Telescope live_grep<CR>"),
         alpha_theme.button("b", " " .. " Jump to bookmarks", ":Telescope marks<CR>"),
-        alpha_theme.button("l", "󰕮 " .. " Jump to bookmarks", ":Lazy<CR>"),
+        alpha_theme.button("l", "󰕮 " .. " Lazy Dashboard", ":Lazy<CR>"),
         alpha_theme.button("q", "󰗼 " .. " Exit", ":q!<CR>"),
     }
 
