@@ -1,6 +1,8 @@
 local CONSTANTS = require('utils.constants')
 
 -- =================== INDENTATION SETTINGS ===================
+vim.cmd.colorscheme "catppuccin"
+
 -- Soft tabstop: Number of spaces that a <Tab> counts for while performing editing operations, like inserting a <Tab> or using <BS>.
 vim.o.softtabstop     = CONSTANTS.NVIM_OPTIONS.SOFTTABSTOP
 

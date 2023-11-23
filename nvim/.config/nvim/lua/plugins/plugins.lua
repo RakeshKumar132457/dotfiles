@@ -38,14 +38,20 @@ return {
     -- Plugins that enhance the user interface and user experience
     -- ========================
 
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     event = 'BufEnter',
+    --     lazy = true,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd([[colorscheme tokyonight]])
+    --     end,
+    -- },
+
     {
-        "folke/tokyonight.nvim",
-        event = 'BufEnter',
-        lazy = true,
-        priority = 1000,
-        config = function()
-            vim.cmd([[colorscheme tokyonight]])
-        end,
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000
     },
 
     {
@@ -270,7 +276,7 @@ return {
         "m4xshen/hardtime.nvim",
         lazy = false,
         opts = {
-            disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "alpha", "help"},
+            disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "alpha", "help" },
         },
         description = "Prevents repeated key presses (e.g., hjkl)"
     },
@@ -278,12 +284,7 @@ return {
     {
         'j-hui/fidget.nvim',
         event = "BufRead",
-        opts = {
-            text = {
-                spinner = 'dots_pulse',
-                done = '󰄭 '
-            },
-        },
+        config = true,
         description = "Displays ongoing processes similar to the bottom bar in VSCode"
     },
 

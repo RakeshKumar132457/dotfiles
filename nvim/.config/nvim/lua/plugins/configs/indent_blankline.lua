@@ -4,6 +4,7 @@ function indent_blankline_setting.setup()
     require("ibl").setup {
         indent = {
             char = '▏',
+            tab_char = '▏',
         },
         exclude = {
             filetypes = { 'help', 'packer', 'startify', 'NvimTree', 'alpha' },
