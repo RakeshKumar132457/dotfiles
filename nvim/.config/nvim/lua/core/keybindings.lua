@@ -64,7 +64,7 @@ vim.keymap.set('n', '<leader>o', '<cmd>Lspsaga outline<CR>', opts)
 vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<CR>', opts)
 
 -- Find references or definitions
-vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', opts)
+vim.keymap.set('n', 'gh', '<cmd>Lspsaga finder<CR>', opts)
 
 -- ==========================================
 -- Code Runner Keybindings

@@ -95,9 +95,7 @@ return {
 
     {
         'goolord/alpha-nvim',
-        cond = function()
-            return #vim.fn.argv() == 0
-        end,
+        event = "VimEnter",
         config = function()
             require('plugins.configs.alpha').setup()
         end,

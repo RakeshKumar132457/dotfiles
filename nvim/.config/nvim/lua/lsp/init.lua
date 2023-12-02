@@ -22,7 +22,6 @@ return {
     clangd = clangd,
     gopls = gopls,
     sumneko_lua = sumneko_lua,
-    -- rust_analyzer = rust_analyzer,
     pyright = pyright,
     tsserver = tsserver,
     html = html

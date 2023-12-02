@@ -1,14 +1,11 @@
 -- ~/.config/nvim/lua/plugins/config/rust_tools_config.lua
 
+local general_config = require('lsp.general.config')
 local rust_tools_config = {}
 
 function rust_tools_config.setup()
-    -- Custom on_attach function
-    local function on_attach(client, bufnr)
-        -- Your existing on_attach function, if any
-        -- Set up :RustHoverActions keybind
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rh', ':RustHoverActions<CR>', { noremap = true, silent = true })
-    end
+    local on_attach = general_config.on_attach
+
 
     -- Configuration options for rust-tools.nvim
     local opts = {
