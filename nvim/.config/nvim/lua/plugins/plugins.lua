@@ -200,7 +200,6 @@ return {
     {
         "folke/trouble.nvim",
         description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues.",
-        lazy = false,
         cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' }
 
     },
@@ -212,7 +211,6 @@ return {
 
     {
         'nvim-telescope/telescope.nvim',
-        lazy = true,
         cmd = 'Telescope',
         config = function()
             require('plugins.configs.telescope').setup()
@@ -234,15 +232,11 @@ return {
     {
         'ggandor/leap.nvim',
         event = 'BufRead',
-        lazy = true,
         config = function()
             require('leap').add_default_mappings()
         end,
         description = "An efficient and intuitive motion plugin, enabling quick navigation through text in Neovim."
-
     },
-
-
 
     -- ========================
     -- Editing Enhancements

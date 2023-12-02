@@ -82,26 +82,6 @@ vim.keymap.set('n', '<leader>cr', ':lua require"utils.code_runner".run()<CR>')
 -- Toggle the terminal
 vim.keymap.set('n', '<leader>tr', '<cmd>ToggleTerm<CR>')
 
--- ==========================================
--- Harpoon Keybindings
--- ==========================================
--- Harpoon provides a mechanism to bookmark files and quickly toggle between them.
-
--- Add the current file to harpoon's list
-vim.keymap.set('n', '<leader>ha', function() require('harpoon.mark').add_file() end,
-    { desc = 'Harpoon: Add current file' })
-
--- Show the harpoon UI (This will display a list of marked files)
-vim.keymap.set('n', '<leader>hs', function() require('harpoon.ui').toggle_quick_menu() end, { desc = 'Harpoon: Show UI' })
-
--- Navigate to the next and previous marked files
--- Note: The nav_file function with arguments 1 and -1 is hypothetical. You might need to implement this logic or check if newer versions of harpoon have added this feature.
-vim.keymap.set('n', '<leader>hn', function() require('harpoon.ui').nav_file(1) end,
-    { desc = 'Harpoon: Go to next marked file' })
-vim.keymap.set('n', '<leader>hp', function() require('harpoon.ui').nav_file(-1) end,
-    { desc = 'Harpoon: Go to previous marked file' })
-
-
 -- Trouble keybindings
 vim.keymap.set('n', '<leader>xx', function() require("trouble").open() end, { desc = '[T]rouble overview' })
 vim.keymap.set('n', '<leader>xw', function() require("trouble").open("workspace_diagnostics") end,
