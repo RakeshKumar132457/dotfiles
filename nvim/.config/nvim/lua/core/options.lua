@@ -60,3 +60,7 @@ vim.o.updatetime      = CONSTANTS.NVIM_OPTIONS.UPDATETIME  -- Possible values: 5
 -- Completeopt: Completion options (for deoplete, for example).
 vim.o.completeopt     = CONSTANTS.NVIM_OPTIONS.COMPLETEOPT  -- Possible values: 'menu', 'menuone', 'noselect', 'noinsert'
 
+-- Disable auto-commenting in insert mode
+-- vim.o.formatoptions:remove({'c', 'r', 'o'})
+vim.cmd("autocmd BufEnter * set formatoptions-=cro")
+vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")

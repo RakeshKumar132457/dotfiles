@@ -23,8 +23,7 @@ return {
 
     {
         'nvim-treesitter/nvim-treesitter',
-        lazy = true,
-        event = 'BufEnter',
+        event = 'BufRead',
         dependencies = {
             --  "Allows advanced manipulation of syntax-aware text objects within code, such as blocks or brackets."
             'nvim-treesitter/nvim-treesitter-textobjects',
@@ -43,7 +42,6 @@ return {
 
     {
         "catppuccin/nvim",
-        event = 'BufEnter',
         name = "catppuccin",
         priority = 1000,
         description = "Aesthetic Neovim theme with pastel colors for a comfortable coding experience."
@@ -51,7 +49,7 @@ return {
 
     {
         'lukas-reineke/indent-blankline.nvim',
-        event = "BufEnter",
+        event = "BufRead",
         config = function()
             require('plugins.configs.indent_blankline').setup()
         end,
@@ -61,7 +59,7 @@ return {
 
     {
         'lewis6991/gitsigns.nvim',
-        event = 'BufRead',
+        event = 'BufReadPost',
         config = true,
         description = "Integrates Git features into the Neovim editor, showing git diff information in the sign column."
 
@@ -70,29 +68,25 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         event = "VimEnter",
-        lazy = true,
         config = true,
         description = "A fast and customizable statusline plugin for Neovim, written in Lua."
     },
 
     {
         'akinsho/bufferline.nvim',
-        event = "BufRead",
-        lazy = true,
+        event = "VimEnter",
         config = true,
         description = "Enhances buffer management, displaying open buffers as tabs at the top of the window."
     },
 
     {
         'nvim-tree/nvim-web-devicons',
-        lazy = true,
         event = 'BufRead',
         description = "Adds file type icons to Neovim plugins like NERDTree, vim-airline, and others."
     },
 
     {
         "sindrets/diffview.nvim",
-        lazy = true,
         cmd = { 'DiffviewOpen', 'DiffviewLog', 'DiffviewFileHistory', 'DiffviewFocusFiles', 'DiffviewClose',
             'DiffviewToggleFiles' },
         description =
@@ -101,7 +95,9 @@ return {
 
     {
         'goolord/alpha-nvim',
-        lazy = false,
+        cond = function()
+            return #vim.fn.argv() == 0
+        end,
         config = function()
             require('plugins.configs.alpha').setup()
         end,
@@ -116,14 +112,13 @@ return {
 
     {
         'neovim/nvim-lspconfig',
-        lazy = false,
-        event = 'BufEnter',
+        event = 'BufRead',
         description = "Configures and manages built-in Neovim LSP (Language Server Protocol) clients."
     },
 
     {
         'williamboman/mason.nvim',
-        lazy = false, -- or true, depending on your needs
+        event = 'BufRead',
         config = function()
             require('plugins.configs.mason').setup()
         end,
@@ -138,7 +133,6 @@ return {
 
     {
         "hrsh7th/nvim-cmp",
-        lazy = true,
         event = 'InsertEnter',
         dependencies = {
             -- "nvim-cmp source for neovim's built-in LSP, enhancing the completion experience for LSP functions."
@@ -159,7 +153,6 @@ return {
 
     {
         "L3MON4D3/LuaSnip",
-        lazy = true,
         event = "InsertEnter",
         config = function()
             require('plugins.configs.luasnippets')
@@ -170,7 +163,6 @@ return {
 
     {
         "ray-x/lsp_signature.nvim",
-        lazy = true,
         event = 'InsertEnter',
         config = function()
             require("lsp_signature").setup()
@@ -180,8 +172,7 @@ return {
 
     {
         "glepnir/lspsaga.nvim",
-        lazy = true,
-        event = "BufEnter",
+        event = "LspAttach",
         config = function()
             require('plugins.configs.lspsaga').setup()
         end,
@@ -194,14 +185,13 @@ return {
         config = function()
             require('plugins.configs.rust_tools').setup()
         end,
-        lazy = false,
+        ft = 'rust',
         description =
         "Provides extra features for Neovim's built-in LSP support when working with Rust, like inlay hints."
     },
 
     {
         "jose-elias-alvarez/null-ls.nvim",
-        lazy = true,
         event = "InsertEnter",
         config = function()
             require('plugins.configs.null_ls').setup()
@@ -211,7 +201,10 @@ return {
 
     {
         "folke/trouble.nvim",
-        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues."
+        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues.",
+        lazy = false,
+        cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' }
+
     },
 
     -- ========================
@@ -277,7 +270,7 @@ return {
 
     {
         'numToStr/Comment.nvim',
-        keys = { 'gcc', 'gbc', 'gc', 'gb' },
+        keys = { 'gcc', 'gbc' },
         config = true,
         description = "Provides easy and configurable commenting functionality in Neovim, supporting multiple languages."
     },
@@ -289,15 +282,14 @@ return {
 
     {
         "akinsho/toggleterm.nvim",
-        lazy = true,
-        event = 'BufEnter',
+        event = 'VimEnter',
         config = true,
         description = "Add terminal functionality within Neovim"
     },
 
     {
         "m4xshen/hardtime.nvim",
-        lazy = false,
+        event = 'BufRead',
         opts = {
             disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "alpha", "help" },
         },
@@ -306,21 +298,21 @@ return {
 
     {
         'j-hui/fidget.nvim',
-        event = "BufRead",
+        event = "LspAttach",
         config = true,
         description = "Displays ongoing processes similar to the bottom bar in VSCode"
     },
 
     {
         'folke/neodev.nvim',
-        event = "InsertEnter",
         config = true,
+        ft = 'lua',
         description = "Assists with Neovim development"
     },
 
     {
         "folke/which-key.nvim",
-        event = 'BufRead',
+        event = 'BufWinEnter',
         config = true,
         description = "Suggests key mappings based on the initial key pressed"
     },
