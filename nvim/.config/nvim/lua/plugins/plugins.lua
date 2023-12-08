@@ -23,7 +23,7 @@ return {
 
     {
         'nvim-treesitter/nvim-treesitter',
-        event = 'BufRead',
+        event = 'BufEnter',
         dependencies = {
             --  "Allows advanced manipulation of syntax-aware text objects within code, such as blocks or brackets."
             'nvim-treesitter/nvim-treesitter-textobjects',
@@ -116,7 +116,7 @@ return {
 
     {
         'williamboman/mason.nvim',
-        event = 'BufRead',
+        lazy = false,
         config = function()
             require('plugins.configs.mason').setup()
         end,
