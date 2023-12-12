@@ -7,8 +7,7 @@ local general_keybindings = require('lsp.general.lsp_keybindings')
 -- Load individual language servers
 local clangd = require('lsp.servers.clangd')
 local gopls = require('lsp.servers.gopls')
-local sumneko_lua = require('lsp.servers.sumneko_lua')
--- local rust_analyzer = require('lsp.servers.rust_analyzer')
+local lua_ls = require('lsp.servers.lua_ls')
 local pyright = require('lsp.servers.pyright')
 local tsserver = require('lsp.servers.tsserver')
 local html = require('lsp.servers.html')
@@ -21,7 +20,7 @@ return {
     -- Individual language servers
     clangd = clangd,
     gopls = gopls,
-    sumneko_lua = sumneko_lua,
+    lua_ls = lua_ls,
     pyright = pyright,
     tsserver = tsserver,
     html = html

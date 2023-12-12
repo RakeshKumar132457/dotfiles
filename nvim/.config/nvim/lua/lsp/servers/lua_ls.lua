@@ -1,4 +1,4 @@
--- lsp/servers/sumneko_lua.lua
+-- lsp/servers/lua_ls.lua
 
 local lspconfig = require('lspconfig')
 local general_config = require('lsp.general.config')
