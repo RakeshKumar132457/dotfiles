@@ -4,7 +4,7 @@ local lspconfig = require('lspconfig')
 local general_config = require('lsp.general.config')
 
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
     on_attach = general_config.on_attach,
     capabilities = general_config.capabilities,
     flags = general_config.flags,
