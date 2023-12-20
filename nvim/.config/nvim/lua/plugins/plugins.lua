@@ -190,7 +190,7 @@ return {
 
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = "InsertEnter",
+        event = "LspAttach",
         config = function()
             require('plugins.configs.null_ls').setup()
         end,
