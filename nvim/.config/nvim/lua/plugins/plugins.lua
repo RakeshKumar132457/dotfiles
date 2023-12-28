@@ -31,8 +31,7 @@ return {
         config = function()
             require('plugins.configs.treesitter').setup()
         end,
-        description =
-        "Enhances syntax highlighting, code navigation, and text analysis by utilizing efficient, language-specific parsing."
+        -- description = "Enhances syntax highlighting, code navigation, and text analysis by utilizing efficient, language-specific parsing."
     },
 
     -- ========================
@@ -44,7 +43,7 @@ return {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
-        description = "Aesthetic Neovim theme with pastel colors for a comfortable coding experience."
+        -- description = "Aesthetic Neovim theme with pastel colors for a comfortable coding experience."
     },
 
     {
@@ -53,7 +52,7 @@ return {
         config = function()
             require('plugins.configs.indent_blankline').setup()
         end,
-        description = "Displays indentation guides in empty lines for enhanced code readability."
+        -- description = "Displays indentation guides in empty lines for enhanced code readability."
 
     },
 
@@ -61,7 +60,7 @@ return {
         'lewis6991/gitsigns.nvim',
         event = 'BufReadPost',
         config = true,
-        description = "Integrates Git features into the Neovim editor, showing git diff information in the sign column."
+        -- description = "Integrates Git features into the Neovim editor, showing git diff information in the sign column."
 
     },
 
@@ -69,28 +68,27 @@ return {
         'nvim-lualine/lualine.nvim',
         event = "VimEnter",
         config = true,
-        description = "A fast and customizable statusline plugin for Neovim, written in Lua."
+        -- description = "A fast and customizable statusline plugin for Neovim, written in Lua."
     },
 
     {
         'akinsho/bufferline.nvim',
         event = "VimEnter",
         config = true,
-        description = "Enhances buffer management, displaying open buffers as tabs at the top of the window."
+        -- description = "Enhances buffer management, displaying open buffers as tabs at the top of the window."
     },
 
     {
         'nvim-tree/nvim-web-devicons',
         event = 'BufRead',
-        description = "Adds file type icons to Neovim plugins like NERDTree, vim-airline, and others."
+        -- description = "Adds file type icons to Neovim plugins like NERDTree, vim-airline, and others."
     },
 
     {
         "sindrets/diffview.nvim",
         cmd = { 'DiffviewOpen', 'DiffviewLog', 'DiffviewFileHistory', 'DiffviewFocusFiles', 'DiffviewClose',
             'DiffviewToggleFiles' },
-        description =
-        "Provides a side-by-side diff view for comparing files, integrated with Neovim's built-in diff capabilities."
+        -- description = "Provides a side-by-side diff view for comparing files, integrated with Neovim's built-in diff capabilities."
     },
 
     {
@@ -99,8 +97,7 @@ return {
         config = function()
             require('plugins.configs.alpha').setup()
         end,
-        description =
-        "A highly customizable start screen for Neovim, offering quick access to recent files, bookmarks, and more."
+        -- description = "A highly customizable start screen for Neovim, offering quick access to recent files, bookmarks, and more."
     },
 
     -- ========================
@@ -111,7 +108,7 @@ return {
     {
         'neovim/nvim-lspconfig',
         event = 'BufRead',
-        description = "Configures and manages built-in Neovim LSP (Language Server Protocol) clients."
+        -- description = "Configures and manages built-in Neovim LSP (Language Server Protocol) clients."
     },
 
     {
@@ -125,8 +122,7 @@ return {
             'williamboman/mason-lspconfig.nvim',
 
         },
-        description =
-        "A Neovim plugin for managing external editor tooling like LSP servers, DAP servers, linters, and formatters."
+        -- description = "A Neovim plugin for managing external editor tooling like LSP servers, DAP servers, linters, and formatters."
     },
 
     {
@@ -145,8 +141,7 @@ return {
         config = function()
             require('plugins.configs.nvim_cmp')
         end,
-        description =
-        "A completion engine plugin for Neovim, providing highly configurable and extensible auto-completion."
+        -- description = "A completion engine plugin for Neovim, providing highly configurable and extensible auto-completion."
     },
 
     {
@@ -155,8 +150,7 @@ return {
         config = function()
             require('plugins.configs.luasnippets')
         end,
-        description = "A snippet engine for Neovim written in Lua, allowing users to create and manage code snippets."
-
+        -- description = "A snippet engine for Neovim written in Lua, allowing users to create and manage code snippets."
     },
 
     {
@@ -165,7 +159,7 @@ return {
         config = function()
             require("lsp_signature").setup()
         end,
-        description = "Displays function signature help in a popup window during typing, for Neovim's built-in LSP."
+        -- description = "Displays function signature help in a popup window during typing, for Neovim's built-in LSP."
     },
 
     {
@@ -174,8 +168,7 @@ return {
         config = function()
             require('plugins.configs.lspsaga').setup()
         end,
-        description =
-        "A light and stylish UI plugin for Neovim's built-in LSP, offering additional features and visuals."
+        -- description = "A light and stylish UI plugin for Neovim's built-in LSP, offering additional features and visuals."
     },
 
     {
@@ -184,8 +177,7 @@ return {
             require('plugins.configs.rust_tools').setup()
         end,
         ft = 'rust',
-        description =
-        "Provides extra features for Neovim's built-in LSP support when working with Rust, like inlay hints."
+        -- description = "Provides extra features for Neovim's built-in LSP support when working with Rust, like inlay hints."
     },
 
     {
@@ -194,13 +186,13 @@ return {
         config = function()
             require('plugins.configs.null_ls').setup()
         end,
-        description = "Allows using non-LSP sources like linters and formatters with Neovim's native LSP functionality."
+        -- description = "Allows using non-LSP sources like linters and formatters with Neovim's native LSP functionality."
     },
 
     {
         "folke/trouble.nvim",
         cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' },
-        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues."
+        -- description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues."
     },
 
     -- ========================
@@ -218,14 +210,14 @@ return {
             -- "A collection of Lua functions and utilities that serve as a dependency for many Neovim plugins."
             'nvim-lua/plenary.nvim'
         },
-        description = "A highly extendable fuzzy finder over lists, for Neovim, integrating with various sources."
+        -- description = "A highly extendable fuzzy finder over lists, for Neovim, integrating with various sources."
     },
 
     {
         'nvim-tree/nvim-tree.lua',
         cmd = "NvimTreeToggle",
         config = true,
-        description = "A file explorer tree for Neovim, providing a visual representation of the file system."
+        -- description = "A file explorer tree for Neovim, providing a visual representation of the file system."
     },
 
     {
@@ -234,7 +226,7 @@ return {
         config = function()
             require('leap').add_default_mappings()
         end,
-        description = "An efficient and intuitive motion plugin, enabling quick navigation through text in Neovim."
+        -- description = "An efficient and intuitive motion plugin, enabling quick navigation through text in Neovim."
     },
 
     -- ========================
@@ -246,7 +238,7 @@ return {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         config = true,
-        description = "Automatically pairs brackets, quotes, and other characters for efficient coding in Neovim."
+        -- description = "Automatically pairs brackets, quotes, and other characters for efficient coding in Neovim."
     },
 
     {
@@ -255,7 +247,7 @@ return {
         config = function()
             require("nvim-ts-autotag").setup { enable = true }
         end,
-        description = "Automatically updates and closes HTML/XML tags using Neovim's treesitter functionality."
+        -- description = "Automatically updates and closes HTML/XML tags using Neovim's treesitter functionality."
 
     },
 
@@ -263,7 +255,7 @@ return {
         'numToStr/Comment.nvim',
         keys = { 'gcc', 'gbc' },
         config = true,
-        description = "Provides easy and configurable commenting functionality in Neovim, supporting multiple languages."
+        -- description = "Provides easy and configurable commenting functionality in Neovim, supporting multiple languages."
     },
 
     -- ========================
@@ -275,7 +267,7 @@ return {
         "akinsho/toggleterm.nvim",
         event = 'VimEnter',
         config = true,
-        description = "Add terminal functionality within Neovim"
+        -- description = "Add terminal functionality within Neovim"
     },
 
     {
@@ -284,27 +276,27 @@ return {
         opts = {
             disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", "alpha", "help" },
         },
-        description = "Prevents repeated key presses (e.g., hjkl)"
+        -- description = "Prevents repeated key presses (e.g., hjkl)"
     },
 
     {
         'j-hui/fidget.nvim',
         event = "LspAttach",
         config = true,
-        description = "Displays ongoing processes similar to the bottom bar in VSCode"
+        -- description = "Displays ongoing processes similar to the bottom bar in VSCode"
     },
 
     {
         'folke/neodev.nvim',
         config = true,
         ft = 'lua',
-        description = "Assists with Neovim development"
+        -- description = "Assists with Neovim development"
     },
 
     {
         "folke/which-key.nvim",
         event = 'BufWinEnter',
         config = true,
-        description = "Suggests key mappings based on the initial key pressed"
+        -- description = "Suggests key mappings based on the initial key pressed"
     },
 }
