@@ -189,7 +189,7 @@ return {
     },
 
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         event = "LspAttach",
         config = function()
             require('plugins.configs.null_ls').setup()
@@ -199,9 +199,8 @@ return {
 
     {
         "folke/trouble.nvim",
-        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues.",
         cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' }
-
+        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues.",
     },
 
     -- ========================
