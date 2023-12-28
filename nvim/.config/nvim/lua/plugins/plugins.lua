@@ -199,8 +199,8 @@ return {
 
     {
         "folke/trouble.nvim",
-        cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' }
-        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues.",
+        cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' },
+        description = "A diagnostic list and viewer for Neovim, making it easier to identify and navigate code issues."
     },
 
     -- ========================
