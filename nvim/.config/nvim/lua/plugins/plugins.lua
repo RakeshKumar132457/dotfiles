@@ -258,6 +258,11 @@ return {
         -- description = "Provides easy and configurable commenting functionality in Neovim, supporting multiple languages."
     },
 
+    {
+        "kylechui/nvim-surround",
+        event = "BufRead",
+        config = true
+    },
     -- ========================
     -- Miscellaneous
     -- Plugins with unique functionalities that don't fit into other categories
