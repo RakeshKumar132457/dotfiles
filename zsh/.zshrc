@@ -1,8 +1,10 @@
-
-# The following lines were added by compinstall
+# Commands
 alias ls='ls --color=auto'
 
+# Exports
+export PATH="$HOME/.local/bin:$PATH"
 
+# The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
@@ -28,7 +30,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 . "$HOME/.cargo/env"
 
-eval "$(zoxide init bash)"
+eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
