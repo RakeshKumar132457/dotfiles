@@ -66,6 +66,7 @@ format = '[\($hash\)]($style)'
 # MODULE: Git Metrics
 # DESCRIPTION: Displays added and deleted lines in the current Git repository
 [git_metrics]
+only_nonzero_diffs = true
 disabled = false
 added_style = "bold green"
 deleted_style = "bold red"
