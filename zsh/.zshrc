@@ -1,37 +1,65 @@
-# Commands
-alias ls='ls --color=auto'
+# -----------------------
+# Zsh Specific Configuration
+# -----------------------
+# History Configuration
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
 
-# Exports
-export PATH="$HOME/.local/bin:$PATH"
+# Disable beep sound
+unsetopt beep
 
-# The following lines were added by compinstall
+# Enable vi mode keybindings
+bindkey -v
+
+# Completion System Initialization
+autoload -Uz compinit
+compinit
+
+# Zsh Completion Style Configuration
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' matcher-list '' '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**'
-zstyle ':completion:*' verbose true
 zstyle :compinstall filename '/home/rakesh/.zshrc'
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# -----------------------
+# Aliases
+# -----------------------
+alias ls='ls --color=auto'
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-unsetopt beep
-bindkey -v
-# End of lines configured by zsh-newuser-install
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
-
+# -----------------------
+# Third-Party Tools Configuration
+# -----------------------
+# Zoxide Initialization
 eval "$(zoxide init zsh)"
+
+# Starship Prompt Initialization
 eval "$(starship init zsh)"
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Zsh Syntax Highlighting
+# Check if syntax highlighting plugin exists before sourcing
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# -----------------------
+# Environment Variables and User Configurations
+# -----------------------
+export PATH="$HOME/.local/bin:$PATH"
+
+# NVM (Node Version Manager) Configuration
+export NVM_DIR="$HOME/.nvm"
+# Safely load nvm if it exists
+if [ -s "$NVM_DIR/nvm.sh" ]; then . "$NVM_DIR/nvm.sh"; fi
+# Safely load nvm bash_completion if it exists
+if [ -s "$NVM_DIR/bash_completion" ]; then . "$NVM_DIR/bash_completion"; fi
+
+# Rust Cargo Environment
+# Safely load Cargo environment if it exists
+if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
+
+# -----------------------
+# End of Configuration
+# -----------------------
 
