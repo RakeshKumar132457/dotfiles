@@ -45,7 +45,7 @@ style = "bold yellow"
 # MODULE: Directory
 # DESCRIPTION: Displays the current working directory
 [directory]
-read_only = "󰌾"
+read_only = " 󰌾"
 style = "blue"
 format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_symbol = ".../"
