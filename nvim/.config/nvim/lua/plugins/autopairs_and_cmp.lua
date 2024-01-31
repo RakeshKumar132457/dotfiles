@@ -1,6 +1,6 @@
 return {
     "hrsh7th/nvim-cmp",
-    event = {"InsertEnter"}, 
+    event = { "InsertEnter" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",
@@ -15,7 +15,7 @@ return {
 
         cmp.setup({
             snippet = {
-                expand =  function(args)
+                expand = function(args)
                     luasnip.lsp_expand(args.body)
                 end
             },
@@ -27,12 +27,24 @@ return {
                 ["<C-k>"] = cmp.mapping.select_prev_item(),
                 ["<C-j>"] = cmp.mapping.select_next_item(),
                 ["<C-space>"] = cmp.mapping.complete(),
-                ["<CR>"] = cmp.mapping.confirm({selected = true})
+                ["<CR>"] = cmp.mapping.confirm({ selected = true })
             }),
             sources = {
-                {name = 'nvim_lsp'},
-                {name = 'luasnip'}
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' }
             }
         })
+
+        vim.keymap.set({ 'i', 's' }, '<C-k>', function()
+            if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            end
+        end)
+
+        vim.keymap.set({ 'i', 's' }, '<C-j>', function()
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            end
+        end)
     end
 }

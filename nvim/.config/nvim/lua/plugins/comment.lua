@@ -1,4 +1,7 @@
 return {
     "numToStr/Comment.nvim",
-    event = { "BufEnter" }
+    event = { "BufEnter" },
+    config = function()
+        require('Comment').setup()
+    end
 }
