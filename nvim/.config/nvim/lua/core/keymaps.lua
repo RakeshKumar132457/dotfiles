@@ -44,11 +44,12 @@ vim.keymap.set('n', '<leader>ltd', vim.lsp.buf.type_definition,
 vim.keymap.set('n', '<leader>lca', vim.lsp.buf.code_action,
     { noremap = false, silent = true, desc = '[L]SP [C]ode [A]ction' })
 vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, { noremap = false, silent = true, desc = '[L]SP [R]eferences' })
-vim.keymap.set('n', '<leader>laf', vim.lsp.buf.add_workspace_folder,
-    { noremap = false, silent = true, desc = '[L]SP [A]dd [F]older' })
-vim.keymap.set('n', '<leader>lrf', vim.lsp.buf.remove_workspace_folder,
-    { noremap = false, silent = true, desc = '[L]SP [R]emove [F]older' })
-vim.keymap.set('n', '<leader>lf', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-    { silent = true, noremap = true, desc = '[L]sp [F]olders' })
+vim.keymap.set('n', '<leader>lfa', function()
+    vim.lsp.buf.add_workspace_folder(vim.fn.getcwd())
+end, { silent = true, desc = '[L]SP current [F]older [A]dd' })
+vim.keymap.set('n', '<leader>lfr', vim.lsp.buf.remove_workspace_folder,
+    { noremap = false, silent = true, desc = '[L]SP [F]older [R]emove ' })
+vim.keymap.set('n', '<leader>lfl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+    { silent = true, noremap = true, desc = '[L]sp [F]olders [L]ist' })
 vim.keymap.set('n', '<leader>lrn', function() print(vim.inspect(vim.lsp.buf.rename())) end,
     { silent = true, noremap = true, desc = '[L]sp [R]e[Name]' })
