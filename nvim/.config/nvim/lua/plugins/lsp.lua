@@ -6,13 +6,16 @@ return {
         { "williamboman/mason.nvim" },
         { "williamboman/mason-lspconfig.nvim" },
         { "hrsh7th/cmp-nvim-lsp" },
-        { "folke/neodev.nvim" }
+        { "folke/neodev.nvim" },
+        { "nvimtools/none-ls.nvim" },
+        { "j-hui/fidget.nvim" }
     },
     config = function()
         require('mason').setup()
         require('mason-lspconfig').setup({
             ensure_installed = { 'clangd', 'tsserver', 'gopls', 'pyright', 'rust_analyzer', 'html', 'lua_ls' }
         })
+        local null_ls = require('null-ls')
 
         local servers = {
             clangd = {},
@@ -45,5 +48,12 @@ return {
                 settings = config.settings
             }
         end
+        null_ls.setup({
+            sources = {
+                null_ls.builtins.formatting.black,
+                null_ls.builtins.formatting.prettier,
+                null_ls.builtins.formatting.eslint,
+            }
+        })
     end
 }

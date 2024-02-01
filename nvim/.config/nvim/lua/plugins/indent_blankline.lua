@@ -1,6 +1,6 @@
 return {
     "lukas-reineke/indent-blankline.nvim",
-    -- event = 'BufEnter',
+    event = 'BufEnter',
     lazy = true,
     config = function()
         require('ibl').setup({
@@ -8,6 +8,9 @@ return {
                 char = '▏',
                 tab_char = '▏',
             },
+            scope = {
+                enabled = false
+            }
         })
     end
 
