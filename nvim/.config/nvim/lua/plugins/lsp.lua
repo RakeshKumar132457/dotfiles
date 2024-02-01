@@ -6,7 +6,13 @@ return {
         { "williamboman/mason.nvim" },
         { "williamboman/mason-lspconfig.nvim" },
         { "hrsh7th/cmp-nvim-lsp" },
-        { "folke/neodev.nvim" },
+        {
+            "folke/neodev.nvim",
+            ft = { "lua" },
+            config = function()
+                require('neodev').setup({})
+            end
+        },
         { "nvimtools/none-ls.nvim" },
         { "j-hui/fidget.nvim" }
     },
@@ -55,5 +61,7 @@ return {
                 null_ls.builtins.formatting.eslint,
             }
         })
+
+        require('fidget').setup({})
     end
 }

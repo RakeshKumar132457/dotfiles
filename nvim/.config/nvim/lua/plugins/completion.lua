@@ -3,10 +3,13 @@ return {
     event = { "InsertEnter" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-nvim-lsp',
         "L3MON4D3/LuaSnip",
-        "windwp/nvim-ts-autotag",
-        "windwp/nvim-autopairs",
     },
+
     config = function()
         local luasnip = require('luasnip')
         local cmp = require('cmp')
@@ -32,6 +35,8 @@ return {
             sources = {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
+                { name = 'buffer' },
+                {name = 'path'}
             }
         })
 
