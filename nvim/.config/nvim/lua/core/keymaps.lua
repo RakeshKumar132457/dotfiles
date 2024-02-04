@@ -45,7 +45,7 @@ vim.keymap.set('n', '<leader>lca', vim.lsp.buf.code_action,
     { noremap = false, silent = true, desc = '[L]SP [C]ode [A]ction' })
 vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, { noremap = false, silent = true, desc = '[L]SP [R]eferences' })
 vim.keymap.set('n', '<leader>lfa', function()
-    vim.lsp.buf.add_workspace_folder(vim.fn.getcwd())
+    vim.lsp.buf.add_workspace_folder()
 end, { silent = true, desc = '[L]SP current [F]older [A]dd' })
 vim.keymap.set('n', '<leader>lfr', vim.lsp.buf.remove_workspace_folder,
     { noremap = false, silent = true, desc = '[L]SP [F]older [R]emove ' })

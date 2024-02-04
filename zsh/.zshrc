@@ -11,6 +11,7 @@ unsetopt beep
 
 # Enable vi mode keybindings
 bindkey -v
+bindkey '^R' history-incremental-search-backward
 
 # Completion System Initialization
 autoload -Uz compinit
