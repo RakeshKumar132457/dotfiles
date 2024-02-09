@@ -11,7 +11,17 @@ return {
         }
     },
     config = function()
-        require('telescope').setup({ })
+        require('telescope').setup({
+            defaults = {
+                prompt_prefix = ' 🔍 ',
+                selection_caret = ' ',
+            },
+            pickers = {
+                find_files = {
+                    hidden = true,
+                }
+            }
+        })
         require('telescope').load_extension('projects')
     end
 }

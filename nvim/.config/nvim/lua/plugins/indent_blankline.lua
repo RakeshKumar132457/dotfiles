@@ -9,7 +9,7 @@ return {
                 tab_char = '▏',
             },
             scope = {
-                enabled = true
+                enabled = false
             }
         })
     end
