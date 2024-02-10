@@ -19,11 +19,12 @@ return {
     config = function()
         require('mason').setup()
         require('mason-lspconfig').setup({
-            ensure_installed = { 'clangd', 'tsserver', 'gopls', 'pyright', 'rust_analyzer', 'html', 'lua_ls' }
+            ensure_installed = { 'clangd', 'tsserver', 'gopls', 'pyright', 'rust_analyzer', 'html', 'lua_ls', 'tailwindcss' }
         })
         local null_ls = require('null-ls')
 
         local servers = {
+            tailwindcss = {},
             clangd = {},
             tsserver = {},
             gopls = {},
