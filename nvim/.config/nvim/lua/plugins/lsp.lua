@@ -1,6 +1,6 @@
 return {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPost' },
+    event = { "BufReadPre", "BufNewFile" },
     cmd = { "LspInfo", "LspInstall", "LspUninstall", "Mason" },
     dependencies = {
         { "williamboman/mason.nvim" },
@@ -24,6 +24,7 @@ return {
         local null_ls = require('null-ls')
 
         local servers = {
+            emmet_ls = {},
             tailwindcss = {},
             clangd = {},
             tsserver = {},
@@ -62,6 +63,26 @@ return {
                 -- null_ls.builtins.formatting.eslint,
             }
         })
+
+        vim.keymap.set('n', '<leader>fb', function() vim.lsp.buf.format({ async = true }) end,
+            { silent = true, desc = '[F]ormatting [B]uffer' })
+        vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition,
+            { noremap = false, silent = true, desc = '[L]SP [D]efinition' })
+        vim.keymap.set('n', '<leader>ltd', vim.lsp.buf.type_definition,
+            { noremap = false, silent = true, desc = '[L]SP [T]ype [D]efinition' })
+        vim.keymap.set('n', '<leader>lca', vim.lsp.buf.code_action,
+            { noremap = false, silent = true, desc = '[L]SP [C]ode [A]ction' })
+        vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references,
+            { noremap = false, silent = true, desc = '[L]SP [R]eferences' })
+        vim.keymap.set('n', '<leader>lfa', function()
+            vim.lsp.buf.add_workspace_folder()
+        end, { silent = true, desc = '[L]SP current [F]older [A]dd' })
+        vim.keymap.set('n', '<leader>lfr', vim.lsp.buf.remove_workspace_folder,
+            { noremap = false, silent = true, desc = '[L]SP [F]older [R]emove ' })
+        vim.keymap.set('n', '<leader>lfl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+            { silent = true, noremap = true, desc = '[L]sp [F]olders [L]ist' })
+        vim.keymap.set('n', '<leader>lrn', function() print(vim.inspect(vim.lsp.buf.rename())) end,
+            { silent = true, noremap = true, desc = '[L]sp [R]e[Name]' })
 
         require('fidget').setup({})
     end

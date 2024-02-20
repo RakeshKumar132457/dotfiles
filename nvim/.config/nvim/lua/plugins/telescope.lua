@@ -1,8 +1,10 @@
 return {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
+    -- event = { "VeryLazy" },
     dependencies = {
         "nvim-lua/plenary.nvim",
+        "debugloop/telescope-undo.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build =
@@ -20,8 +22,9 @@ return {
                 find_files = {
                     hidden = true,
                 }
-            }
+            },
         })
         require('telescope').load_extension('projects')
+        require('telescope').load_extension('undo')
     end
 }

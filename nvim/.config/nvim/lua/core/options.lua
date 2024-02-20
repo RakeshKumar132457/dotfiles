@@ -21,4 +21,5 @@ vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
 
 -- vim.o.showtabline = 2
+-- vim.o.cmdheight = 0
 

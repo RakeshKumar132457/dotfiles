@@ -1,10 +1,24 @@
 vim.keymap.set('n', '<leader>ft', function()
     require('oil').toggle_float()
 end, { desc = "[F]ile [T]ree " })
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>tt', '<Cmd>ToggleTerm<CR>', { desc = '[T]oggle [T]erm' })
 
-vim.keymap.set('n', '<leader>fb', function() vim.lsp.buf.format({ async = true }) end,
-    { silent = true, desc = '[F]ormatting [B]uffer' })
+-- Trouble
+vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
+vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end,
+    { desc = "Toggle Workspace Diagnostics" })
+vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end,
+    { desc = "Toggle Document Diagnostics" })
+vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end,
+    { desc = "Toggle Quickfix" })
+vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end,
+    { desc = "Toggle Location List" })
+vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end,
+    { desc = "Toggle LSP References" })
 
+
+-- Telescope
 vim.keymap.set('n', '<leader>sf', function()
     require('telescope.builtin').find_files()
 end, { desc = '[S]earch [F]iles' })
@@ -33,23 +47,7 @@ vim.keymap.set('n', '<leader>sk', function()
     require('telescope.builtin').keymaps()
 end, { desc = '[S]earch [K]eymaps' })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
 
-vim.keymap.set('n', '<leader>tt', '<Cmd>ToggleTerm<CR>', { desc = '[T]oggle [T]erm' })
-
-
-vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { noremap = false, silent = true, desc = '[L]SP [D]efinition' })
-vim.keymap.set('n', '<leader>ltd', vim.lsp.buf.type_definition,
-    { noremap = false, silent = true, desc = '[L]SP [T]ype [D]efinition' })
-vim.keymap.set('n', '<leader>lca', vim.lsp.buf.code_action,
-    { noremap = false, silent = true, desc = '[L]SP [C]ode [A]ction' })
-vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, { noremap = false, silent = true, desc = '[L]SP [R]eferences' })
-vim.keymap.set('n', '<leader>lfa', function()
-    vim.lsp.buf.add_workspace_folder()
-end, { silent = true, desc = '[L]SP current [F]older [A]dd' })
-vim.keymap.set('n', '<leader>lfr', vim.lsp.buf.remove_workspace_folder,
-    { noremap = false, silent = true, desc = '[L]SP [F]older [R]emove ' })
-vim.keymap.set('n', '<leader>lfl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-    { silent = true, noremap = true, desc = '[L]sp [F]olders [L]ist' })
-vim.keymap.set('n', '<leader>lrn', function() print(vim.inspect(vim.lsp.buf.rename())) end,
-    { silent = true, noremap = true, desc = '[L]sp [R]e[Name]' })
+vim.keymap.set('n', '<leader>ut', function()
+    require('telescope').extensions.undo.undo()
+end, { desc = '[U]ndo [T]ree' })

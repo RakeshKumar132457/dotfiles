@@ -1,11 +1,17 @@
 return {
     'nvim-treesitter/nvim-treesitter',
-    event = 'BufEnter',
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
     },
     config = function()
         require('nvim-treesitter.configs').setup({
+            autotags = {
+                enable = true,
+                enable_rename = true,
+                enable_close = true,
+                enable_close_on_slash = true,
+            },
             ensure_installed = {
                 "bash", "c", "cpp", "css", "go", "html", "java", "javascript", "json",
                 "lua", "markdown", "python", "rust", "scss", "tsx", "typescript"

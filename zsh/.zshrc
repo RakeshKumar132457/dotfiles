@@ -26,7 +26,8 @@ zstyle :compinstall filename '/home/rakesh/.zshrc'
 # -----------------------
 # Aliases
 # -----------------------
-alias ls='ls --color=auto'
+alias ls='exa'
+alias cat='bat'
 
 # -----------------------
 # Third-Party Tools Configuration
