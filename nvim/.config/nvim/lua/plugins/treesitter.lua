@@ -12,6 +12,7 @@ return {
                 enable_close = true,
                 enable_close_on_slash = true,
             },
+            sync_install = true,
             ensure_installed = {
                 "bash", "c", "cpp", "css", "go", "html", "java", "javascript", "json",
                 "lua", "markdown", "python", "rust", "scss", "tsx", "typescript"
