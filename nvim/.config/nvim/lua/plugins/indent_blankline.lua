@@ -11,7 +11,12 @@ return {
             },
             scope = {
                 enabled = false
-            }
+            },
+            exclude = {
+                filetypes = { 'help', 'packer', 'startify', 'NvimTree', 'alpha', 'norg' },
+                buftypes = { 'terminal', 'nofile', 'NvimTree', 'dashboard', 'alpha', 'norg' },
+            },
+
         })
     end
 }
