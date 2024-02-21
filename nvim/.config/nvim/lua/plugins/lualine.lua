@@ -1,9 +1,9 @@
 return {
     'nvim-lualine/lualine.nvim',
-    event = "UiEnter",
+    event = { "BufReadPost" },
     -- enabled = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
+    config = function()
         require('lualine').setup({})
     end
 }
