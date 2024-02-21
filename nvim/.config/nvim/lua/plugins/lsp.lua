@@ -60,7 +60,7 @@ return {
             sources = {
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.prettier.with({
-                    extra_args = { "--tab-width", "4" },
+                    extra_args = { "--tab-width", "4", "--print-width", "120" },
                 }),
                 -- null_ls.builtins.formatting.eslint,
             }
