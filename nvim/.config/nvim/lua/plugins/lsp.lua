@@ -64,7 +64,7 @@ return {
             }
         })
 
-        vim.keymap.set('n', '<leader>fb', function() vim.lsp.buf.format({ async = true }) end,
+        vim.keymap.set({ 'n', 'v' }, '<leader>fb', function() vim.lsp.buf.format({ async = true }) end,
             { silent = true, desc = '[F]ormatting [B]uffer' })
         vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition,
             { noremap = false, silent = true, desc = '[L]SP [D]efinition' })
