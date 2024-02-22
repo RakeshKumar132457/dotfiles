@@ -20,6 +20,10 @@ vim.o.completeopt = 'menuone,noselect'
 vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
 
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 -- vim.o.showtabline = 2
 -- vim.o.cmdheight = 0
-

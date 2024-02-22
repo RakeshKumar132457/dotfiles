@@ -4,7 +4,14 @@ return {
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-        require("bufferline").setup({})
+        require("bufferline").setup({
+            options = {
+                themable = true,
+                numbers = "buffer_id",
+                diagnostics = 'nvim_lsp',
+                separator_style = {"|", "|"}
+            },
+        })
     end
 
 }

@@ -19,9 +19,21 @@ return {
     config = function()
         require('mason').setup()
         require('mason-lspconfig').setup({
-            ensure_installed = { 'clangd', 'tsserver', 'gopls', 'pyright', 'rust_analyzer', 'html', 'lua_ls', 'tailwindcss' }
+            ensure_installed = { 'emmet_ls', 'clangd', 'tsserver', 'gopls', 'pyright', 'rust_analyzer', 'html', 'lua_ls', 'tailwindcss' }
         })
         local null_ls = require('null-ls')
+        local signs = {
+            Error = " ",
+            Warn = " ",
+            Hint = " ",
+            Info = " "
+        }
+
+        for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        end
+
 
         local servers = {
             emmet_ls = {},
