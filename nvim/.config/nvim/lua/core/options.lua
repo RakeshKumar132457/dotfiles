@@ -1,29 +1,39 @@
-vim.o.softtabstop = 4
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = true
-vim.o.smartindent = true
-vim.o.hlsearch = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.showmode = true
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.signcolumn = 'yes'
-vim.o.termguicolors = true
-vim.o.cursorline = true
-vim.o.mouse = nil
-vim.o.undofile = true
-vim.o.encoding = "utf-8"
-vim.o.updatetime = 250
-vim.o.completeopt = 'menuone,noselect'
+local opt = vim.opt
+local o = vim.o
+
+o.softtabstop = 4
+o.tabstop = 4
+o.shiftwidth = 4
+o.expandtab = true
+o.smartindent = true
+o.hlsearch = true
+o.ignorecase = true
+o.smartcase = true
+o.showmode = true
+o.number = true
+o.relativenumber = true
+o.signcolumn = 'yes'
+o.termguicolors = true
+o.cursorline = true
+o.mouse = nil
+o.undofile = true
+o.encoding = "utf-8"
+o.updatetime = 250
+o.completeopt = 'menuone,noselect'
+o.foldcolumn = '1'
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldenable = true
+-- o.showtabline = 2
+-- o.cmdheight = 0
+
+opt.fillchars = {
+    eob = " ",
+    fold = "⠀",
+    foldsep = " ",
+    foldclose = "",
+    foldopen = "",
+}
+
 vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
-
-vim.o.foldcolumn = '1'
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
--- vim.o.showtabline = 2
--- vim.o.cmdheight = 0

@@ -10,7 +10,7 @@ return {
                 tab_char = '▏',
             },
             scope = {
-                enabled = false
+                enabled = true
             },
             exclude = {
                 filetypes = { 'help', 'packer', 'startify', 'NvimTree', 'alpha', 'norg' },

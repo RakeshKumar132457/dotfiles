@@ -3,6 +3,14 @@ return {
     dependencies = { 'kevinhwang91/promise-async' },
     opts = {
         filetype_exclude = { 'help', 'alpha', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason', 'norg', 'oil' },
+        close_fold_kinds = { "imports", "comment" },
+        preview = {
+            win_config = {
+                border = { "", "─", "", "", "", "─", "", "" },
+                winhighlight = "Normal:Folded",
+                winblend = 0,
+            },
+        },
     },
     config = function(_, opts)
         vim.api.nvim_create_autocmd('FileType', {
