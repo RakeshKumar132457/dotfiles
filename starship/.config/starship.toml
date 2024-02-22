@@ -109,4 +109,4 @@ disabled = false
 # Custom symbols for different OS types
 [os.symbols]
 Arch = ""
-
+Ubuntu = '󰕈'
