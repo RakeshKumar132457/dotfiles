@@ -1,6 +1,6 @@
 return {
     'akinsho/toggleterm.nvim',
-    cmd = "VimEnter",
+    cmd = 'ToggleTerm',
     config = function()
         require('toggleterm').setup({})
     end

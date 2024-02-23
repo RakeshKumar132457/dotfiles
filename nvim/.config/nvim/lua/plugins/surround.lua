@@ -1,6 +1,5 @@
 return {
     "kylechui/nvim-surround",
-    -- event = "VeryLazy",
-    key = {"S", "s"},
+    event = { "VimEnter" },
     config = true
 }

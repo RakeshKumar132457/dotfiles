@@ -23,10 +23,10 @@ return {
         })
         local null_ls = require('null-ls')
         local signs = {
-            Error = " ",
-            Warn = " ",
-            Hint = " ",
-            Info = " "
+            Error = "",
+            Warn = "",
+            Hint = "",
+            Info = ""
         }
 
         for type, icon in pairs(signs) do

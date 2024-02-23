@@ -1,5 +1,6 @@
 return {
     'kevinhwang91/nvim-ufo',
+    event = "VimEnter",
     dependencies = { 'kevinhwang91/promise-async' },
     opts = {
         filetype_exclude = { 'help', 'alpha', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason', 'norg', 'oil' },
