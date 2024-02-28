@@ -17,6 +17,11 @@ vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist"
 vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end,
     { desc = "Toggle LSP References" })
 
+vim.keymap.set('n', '<leader>g', function()
+    local Terminal = require('toggleterm.terminal').Terminal
+    local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
+    lazygit:toggle()
+end, { desc = 'Toggle LazyGit' })
 
 -- Telescope
 vim.keymap.set('n', '<leader>sf', function()

@@ -58,18 +58,5 @@ return {
         "sindrets/diffview.nvim",
         cmd = { 'DiffviewOpen', 'DiffviewLog', 'DiffviewFileHistory', 'DiffviewFocusFiles', 'DiffviewClose',
             'DiffviewToggleFiles' },
-    },
-    {
-        "NeogitOrg/neogit",
-        cmd = { "Neogit" },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-        config = function()
-            require('neogit').setup({})
-        end
     }
-
 }

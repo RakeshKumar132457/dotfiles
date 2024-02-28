@@ -7,6 +7,7 @@ return {
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-path',
         "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip"
     },
 
     config = function()
@@ -50,5 +51,6 @@ return {
                 luasnip.jump(-1)
             end
         end)
+        require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
     end
 }
