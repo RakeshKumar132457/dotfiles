@@ -2,7 +2,6 @@ local luasnip = require("luasnip")
 local format = require("luasnip.extras.fmt").fmt
 
 return {
-    -- Console log snippet: A shorthand for console.log()
     luasnip.snippet('cl', format(
         [[
             console.log({});
@@ -10,16 +9,9 @@ return {
     )),
 
     luasnip.snippet('clc', format([[
-        console.log(`%c{}`, `{}`);
-    ]], {
-        luasnip.insert_node(1, "Your message here..."),                  -- Placeholder for the log message
-        luasnip.insert_node(2, "color: red; background-color: yellow;"), -- Placeholder for CSS styles
-    })),
+        console.log('\\x1b[31m\\x1b[42m%s\\x1b[0m', JSON.stringify({}));
+    ]], { luasnip.insert_node(1, "Your variable here...") })),
 
-
-
-
-    -- Comment snippet: A template for a block comment
     luasnip.snippet('cmt', format(
         [[
             /**

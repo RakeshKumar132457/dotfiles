@@ -9,6 +9,7 @@ return {
                 "icon",
                 "size",
             },
+            delete_to_trash = true,
         })
     end
 }

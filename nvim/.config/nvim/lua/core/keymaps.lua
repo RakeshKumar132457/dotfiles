@@ -1,8 +1,21 @@
+-- Utilities
 vim.keymap.set('n', '<leader>ft', function()
     require('oil').toggle_float()
 end, { desc = "[F]ile [T]ree " })
 vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>tt', '<Cmd>ToggleTerm<CR>', { desc = '[T]oggle [T]erm' })
+vim.keymap.set('n', '<leader>tn',
+    function()
+        local Terminal = require("toggleterm.terminal").Terminal
+        local new_term = Terminal:new({})
+        new_term:open()
+    end, { desc = '[T]erminal [N]ew' })
+vim.keymap.set('n', '<leader>lg', function()
+    local Terminal = require('toggleterm.terminal').Terminal
+    local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
+    lazygit:toggle()
+end, { desc = '[L]azy [G]it' })
+
 
 -- Trouble
 vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
@@ -16,12 +29,6 @@ vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist"
     { desc = "Toggle Location List" })
 vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end,
     { desc = "Toggle LSP References" })
-
-vim.keymap.set('n', '<leader>lg', function()
-    local Terminal = require('toggleterm.terminal').Terminal
-    local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
-    lazygit:toggle()
-end, { desc = '[L]azy [G]it' })
 
 -- Telescope
 vim.keymap.set('n', '<leader>sf', function()
@@ -51,7 +58,6 @@ end, { desc = '[S]earch [R]ecent files' })
 vim.keymap.set('n', '<leader>sk', function()
     require('telescope.builtin').keymaps()
 end, { desc = '[S]earch [K]eymaps' })
-
 
 vim.keymap.set('n', '<leader>ut', function()
     require('telescope').extensions.undo.undo()

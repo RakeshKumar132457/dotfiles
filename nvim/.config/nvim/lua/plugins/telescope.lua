@@ -13,10 +13,29 @@ return {
         }
     },
     config = function()
+        local action_layout = require("telescope.actions.layout")
         require('telescope').setup({
             defaults = {
-                prompt_prefix = ' 🔍 ',
-                selection_caret = ' ',
+                prompt_prefix = ' ',
+                selection_caret = ' ',
+                vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--trim"
+                },
+                mappings = {
+                    n = {
+                        ["<M-p>"] = action_layout.toggle_preview
+                    },
+                    i = {
+                        ["<M-p>"] = action_layout.toggle_preview,
+                    },
+                },
             },
             pickers = {
                 find_files = {
