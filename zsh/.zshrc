@@ -48,6 +48,7 @@ fi
 # Environment Variables and User Configurations
 # -----------------------
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
 # NVM (Node Version Manager) Configuration
 export NVM_DIR="$HOME/.nvm"
