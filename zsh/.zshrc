@@ -1,6 +1,13 @@
 # -----------------------
 # Zsh Specific Configuration
 # -----------------------
+
+# Environment Variables and User Configurations
+# -----------------------
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+# -----------------------
+
 # History Configuration
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -29,14 +36,6 @@ zstyle :compinstall filename '/home/rakesh/.zshrc'
 alias ls='exa'
 alias cat='bat'
 
-# -----------------------
-# Third-Party Tools Configuration
-# -----------------------
-# Zoxide Initialization
-eval "$(zoxide init zsh)"
-
-# Starship Prompt Initialization
-eval "$(starship init zsh)"
 
 # Zsh Syntax Highlighting
 # Check if syntax highlighting plugin exists before sourcing
@@ -44,11 +43,6 @@ if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# -----------------------
-# Environment Variables and User Configurations
-# -----------------------
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
 # NVM (Node Version Manager) Configuration
 export NVM_DIR="$HOME/.nvm"
@@ -60,6 +54,15 @@ if [ -s "$NVM_DIR/bash_completion" ]; then . "$NVM_DIR/bash_completion"; fi
 # Rust Cargo Environment
 # Safely load Cargo environment if it exists
 if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
+
+# -----------------------
+# Third-Party Tools Configuration
+# -----------------------
+# Zoxide Initialization
+eval "$(zoxide init zsh)"
+
+# Starship Prompt Initialization
+eval "$(starship init zsh)"
 
 # -----------------------
 # End of Configuration
