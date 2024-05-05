@@ -62,3 +62,12 @@ end, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>ut', function()
     require('telescope').extensions.undo.undo()
 end, { desc = '[U]ndo [T]ree' })
+
+vim.keymap.set('n', '<leader>ut', function()
+    require('telescope').extensions.undo.undo()
+end, { desc = '[U]ndo [T]ree' })
+
+vim.keymap.set('n', '<leader>cr', ':lua require"utils.runner".run()<CR>')
+
+
+

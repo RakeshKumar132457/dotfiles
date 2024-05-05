@@ -1,6 +1,6 @@
 return {
     'akinsho/toggleterm.nvim',
-    cmd = 'ToggleTerm',
+    cmd = { 'ToggleTerm', 'TermExec' },
     config = function()
         require('toggleterm').setup({
             persist_mode = true,
