@@ -34,7 +34,6 @@ zstyle :compinstall filename '/home/rakesh/.zshrc'
 # Aliases
 # -----------------------
 alias ls='exa'
-alias cat='bat'
 
 
 # Zsh Syntax Highlighting
