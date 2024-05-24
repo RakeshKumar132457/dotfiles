@@ -24,6 +24,7 @@ o.foldcolumn = '1'
 o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldenable = true
+o.maxmempattern = 2000000
 -- o.showtabline = 2
 -- o.cmdheight = 0
 
