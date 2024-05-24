@@ -5,5 +5,6 @@ return {
             show_hiddden = true,
             scope_chdir = 'win'
         })
-    end
+    end,
+    enabled = false
 }

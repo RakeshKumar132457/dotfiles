@@ -17,5 +17,6 @@ return {
                 lualine_z = { 'location' }
             },
         })
-    end
+    end,
+    enabled = false
 }

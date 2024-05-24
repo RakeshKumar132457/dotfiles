@@ -19,7 +19,7 @@ return {
     config = function()
         require('mason').setup()
         require('mason-lspconfig').setup({
-            ensure_installed = { 'emmet_ls', 'clangd', 'tsserver', 'gopls', 'pyright', 'rust_analyzer', 'html', 'lua_ls', 'tailwindcss' }
+            ensure_installed = { 'emmet_ls', 'clangd', 'tsserver', 'pyright', 'rust_analyzer', 'html', 'lua_ls', 'tailwindcss' }
         })
         local null_ls = require('null-ls')
         local signs = {

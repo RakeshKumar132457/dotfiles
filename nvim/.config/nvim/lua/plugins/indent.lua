@@ -18,7 +18,8 @@ return {
                     buftypes = { 'terminal', 'nofile', 'NvimTree', 'dashboard', 'alpha', 'norg' },
                 },
             })
-        end
+        end,
+        enabled = false
     },
     {
         'nmac427/guess-indent.nvim',

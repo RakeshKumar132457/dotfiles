@@ -7,5 +7,6 @@ return {
             flavour = "mocha",
         })
         vim.cmd([[colorscheme catppuccin]])
-    end
+    end,
+    enabled = false
 }

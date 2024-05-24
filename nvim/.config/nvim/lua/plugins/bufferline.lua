@@ -12,6 +12,6 @@ return {
                 separator_style = {"|", "|"}
             },
         })
-    end
-
+    end,
+    enabled = false
 }
