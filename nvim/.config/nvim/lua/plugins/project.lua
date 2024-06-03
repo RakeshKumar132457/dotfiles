@@ -6,5 +6,5 @@ return {
             scope_chdir = 'win'
         })
     end,
-    enabled = false
+    enabled = true
 }

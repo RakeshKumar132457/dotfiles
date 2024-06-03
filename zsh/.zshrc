@@ -6,6 +6,10 @@
 # -----------------------
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
 # -----------------------
 
 # History Configuration
