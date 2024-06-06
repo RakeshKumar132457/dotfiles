@@ -31,7 +31,8 @@ compinit
 # Zsh Completion Style Configuration
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' matcher-list '' '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**'
+# zstyle ':completion:*' matcher-list '' '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**'
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 zstyle :compinstall filename '/home/rakesh/.zshrc'
 
 # -----------------------
