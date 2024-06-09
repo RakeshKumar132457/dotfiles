@@ -21,6 +21,15 @@ return {
         require('mason-lspconfig').setup({
             ensure_installed = { 'emmet_ls', 'clangd', 'tsserver', 'pyright', 'rust_analyzer', 'html', 'lua_ls', 'tailwindcss' }
         })
+        vim.diagnostic.config({
+            virtual_text = false,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+            severity_sort = true,
+        })
+
+
         local null_ls = require('null-ls')
         local signs = {
             Error = "",
@@ -33,7 +42,6 @@ return {
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
-
 
         local servers = {
             emmet_ls = {},
@@ -66,6 +74,20 @@ return {
         local default_capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
         local on_attach = function(client, bufnr)
+            vim.api.nvim_create_autocmd("CursorHold", {
+                buffer = bufnr,
+                callback = function()
+                    local opts = {
+                        focusable = false,
+                        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+                        border = 'rounded',
+                        source = 'always',
+                        prefix = ' ',
+                        scope = 'cursor',
+                    }
+                    vim.diagnostic.open_float(nil, opts)
+                end
+            })
         end
 
         for lsp, config in pairs(servers) do
@@ -93,8 +115,8 @@ return {
             { noremap = false, silent = true, desc = '[L]SP [T]ype [D]efinition' })
         vim.keymap.set('n', '<leader>lca', vim.lsp.buf.code_action,
             { noremap = false, silent = true, desc = '[L]SP [C]ode [A]ction' })
-        vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references,
-            { noremap = false, silent = true, desc = '[L]SP [R]eferences' })
+        vim.keymap.set('n', '<leader>lrf', vim.lsp.buf.references,
+            { noremap = false, silent = true, desc = '[L]SP [R]e[F]erences' })
         vim.keymap.set('n', '<leader>lfa', function()
             vim.lsp.buf.add_workspace_folder()
         end, { silent = true, desc = '[L]SP current [F]older [A]dd' })

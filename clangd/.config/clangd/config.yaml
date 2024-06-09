@@ -1,29 +1,13 @@
-# CompileFlags:
-    # Add: [-Wall, -Wextra, -Werror, -std=c++17]
-
-# This is the config file for clangd, a language server for C and C++
-# You can find more details about the configuration schema and options in [Configuration - LLVM]
-
-# The config file consists of a list of blocks, each with an optional condition
-# The first block that matches the current file will be applied
-# If no block matches, the default config will be used
-
-# This block applies to C files
-If:
-  # The PathMatch condition checks if the file path matches a regular expression
-  PathMatch: .*\\.c
 CompileFlags:
-  # The CompileFlags option specifies how to compile the file for code analysis
-  # You can add or remove flags using the Add and Remove suboptions
-  Add: [-std=c11, -Wall] # Use C11 standard and enable all warnings
-  Remove: [] # Do not remove any flags
+  Add: [-Wall, -Wextra, -Werror]
 
-# This block applies to C++ files
-If:
-  PathMatch: .*\\.cpp
-CompileFlags:
-  Add: [-Wall, -Wextra, -Werror, -std=c++17] # Use C++17 standard and enable all warnings
-  Remove: [] # Do not remove any flags
+- If:
+    PathMatch: .*.c$
+  CompileFlags:
+    Add: [-std=c11]
 
-# You can add more blocks for other file types or conditions as needed
+- If:
+    PathMatch: .*.cpp$
+  CompileFlags:
+    Add: [-std=c++17]
 
