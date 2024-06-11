@@ -115,8 +115,9 @@ return {
             { noremap = false, silent = true, desc = '[L]SP [T]ype [D]efinition' })
         vim.keymap.set('n', '<leader>lca', vim.lsp.buf.code_action,
             { noremap = false, silent = true, desc = '[L]SP [C]ode [A]ction' })
-        vim.keymap.set('n', '<leader>lrf', vim.lsp.buf.references,
-            { noremap = false, silent = true, desc = '[L]SP [R]e[F]erences' })
+        vim.keymap.set('n', '<leader>lrf', function()
+            require('trouble').open('lsp_references')
+        end, { noremap = true, silent = true, desc = '[L]SP [R]e[F]erences in Trouble' })
         vim.keymap.set('n', '<leader>lfa', function()
             vim.lsp.buf.add_workspace_folder()
         end, { silent = true, desc = '[L]SP current [F]older [A]dd' })
