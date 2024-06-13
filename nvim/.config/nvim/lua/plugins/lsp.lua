@@ -43,6 +43,17 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
 
+        local hl_groups = {
+            DiagnosticUnderlineError = { undercurl = true, sp = "#ff0000" },
+            DiagnosticUnderlineWarn = { undercurl = true, sp = "#ffaa00" },
+            DiagnosticUnderlineHint = { undercurl = true, sp = "#00ff00" },
+            DiagnosticUnderlineInfo = { undercurl = true, sp = "#0000ff" },
+        }
+
+        for hl, opts in pairs(hl_groups) do
+            vim.api.nvim_set_hl(0, hl, opts)
+        end
+
         local servers = {
             emmet_ls = {},
             tailwindcss = {},
