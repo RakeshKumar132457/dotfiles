@@ -1,13 +1,12 @@
 local M = {}
-
 local commands = {
     cpp =
-    "clang++ -std=c++17 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wshift-overflow -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=undefined -fno-sanitize-recover -fstack-protector -fsanitize=address -O2 -g % -o %:r.out && ./%:r.out",
-    c = "clang -Wall -Wextra -Wpedantic -fsanitize=address -O2 -g % -o %:r.out && ./%:r.out",
-    py = "python3 %",
-    lua = "lua %",
-    js = "node %",
-    go = "go run %",
+    "clang++ -std=c++17 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wshift-overflow -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=undefined -fno-sanitize-recover -fstack-protector -fsanitize=address -O2 -g {file} -o {file:r} && ./{file:r}",
+    c = "clang -Wall -Wextra -Wpedantic -fsanitize=address -O2 -g {file} -o {file:r} && ./{file:r}",
+    py = "python3 {file}",
+    lua = "lua {file}",
+    js = "node {file}",
+    go = "go run {file}",
     rs = "cargo run"
 }
 
@@ -22,7 +21,8 @@ function M.run()
         print(string.format("Please specify command for '%s' file type in 'code_runner.lua'", file_ext))
         return
     end
-    command = command:gsub('%%', vim.fn.expand('%'))
+    command = command:gsub('{file}', vim.fn.expand('%'))
+    command = command:gsub('{file:r}', vim.fn.expand('%:r'))
     vim.cmd('TermExec cmd="' .. command .. '"')
 end
 
