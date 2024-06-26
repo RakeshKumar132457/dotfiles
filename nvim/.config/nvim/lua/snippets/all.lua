@@ -9,11 +9,16 @@ return {
         luasnip.text_node(" : "),
         luasnip.insert_node(3, "false_value")
     }),
-
-    -- Curtime snippet: Inserts the current date and time
+    -- Current date snippet: Inserts the current date
+    luasnip.snippet('curdate', {
+        luasnip.function_node(function()
+            return os.date "%D"
+        end)
+    }),
+    -- Current time snippet: Inserts the current time
     luasnip.snippet('curtime', {
         luasnip.function_node(function()
-            return os.date "%D - %H:%M"
+            return os.date "%H:%M"
         end)
     })
 }
