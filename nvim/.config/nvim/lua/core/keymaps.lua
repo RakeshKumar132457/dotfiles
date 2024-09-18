@@ -1,57 +1,41 @@
--- Utilities
-vim.keymap.set('n', '<leader>ft', function()
-    require('oil').toggle_float()
-end, { desc = "[F]ile [T]ree " })
-vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
-vim.keymap.set('n', '<leader>tt', '<Cmd>ToggleTerm<CR>', { desc = '[T]oggle [T]erm' })
-vim.keymap.set('n', '<leader>tn',
-    function()
-        local Terminal = require("toggleterm.terminal").Terminal
-        local new_term = Terminal:new({})
-        new_term:open()
-    end, { desc = '[T]erminal [N]ew' })
-vim.keymap.set('n', '<leader>lg', function()
-    local Terminal = require('toggleterm.terminal').Terminal
-    local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
-    lazygit:toggle()
-end, { desc = '[L]azy [G]it' })
+local map = vim.keymap.set
+local default_opts = { noremap = true, silent = true }
 
+-- Helper function for telescope mappings
+local telescope_map = function(key, func, desc)
+    map('n', key, function()
+        require('telescope.builtin')[func]()
+    end, { noremap = true, silent = true, desc = desc }) -- Ensured correct opts format
+end
 
--- Telescope
-vim.keymap.set('n', '<leader>sf', function()
-    require('telescope.builtin').find_files()
-end, { desc = '[S]earch [F]iles' })
+-- Utility mappings
+map('n', '<leader>ft', function() require('oil').toggle_float() end,
+    { noremap = true, silent = true, desc = "[F]ile [T]ree" })
+map({ 'n', 'v' }, '<leader>y', '"+y', default_opts)
+map('n', '<leader>tt', '<Cmd>ToggleTerm<CR>', { noremap = true, silent = true, desc = '[T]oggle [T]erm' })
+map('n', '<leader>tn', function()
+    require("toggleterm.terminal").Terminal:new():open()
+end, { noremap = true, silent = true, desc = '[T]erminal [N]ew' })
+map('n', '<leader>lg', function()
+    require('toggleterm.terminal').Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' }):toggle()
+end, { noremap = true, silent = true, desc = '[L]azy [G]it' })
 
-vim.keymap.set('n', '<leader>sg', function()
-    require('telescope.builtin').live_grep()
-end, { desc = '[S]earch by [G]rep' })
+-- Telescope mappings
+local telescope_mappings = {
+    { key = '<leader>sf', func = 'find_files',           desc = '[S]earch [F]iles' },
+    { key = '<leader>sg', func = 'live_grep',            desc = '[S]earch by [G]rep' },
+    { key = '<leader>ss', func = 'lsp_document_symbols', desc = '[S]earch LSP [S]ymbols' },
+    { key = '<leader>sb', func = 'buffers',              desc = '[S]earch [B]uffers' },
+    { key = '<leader>sd', func = 'diagnostics',          desc = '[S]earch [D]iagnostics' },
+    { key = '<leader>sr', func = 'oldfiles',             desc = '[S]earch [R]ecent files' },
+    { key = '<leader>sk', func = 'keymaps',              desc = '[S]earch [K]eymaps' },
+}
 
-vim.keymap.set('n', '<leader>ss', function()
-    require('telescope.builtin').lsp_document_symbols()
-end, { desc = '[S]earch LSP [S]ymbols' })
+for _, mapping in ipairs(telescope_mappings) do
+    telescope_map(mapping.key, mapping.func, mapping.desc)
+end
 
-vim.keymap.set('n', '<leader>sb', function()
-    require('telescope.builtin').buffers()
-end, { desc = '[S]earch [B]uffers' })
-
-vim.keymap.set('n', '<leader>sd', function()
-    require('telescope.builtin').diagnostics()
-end, { desc = '[S]earch [D]iagonstics' })
-
-vim.keymap.set('n', '<leader>sr', function()
-    require('telescope.builtin').oldfiles()
-end, { desc = '[S]earch [R]ecent files' })
-
-vim.keymap.set('n', '<leader>sk', function()
-    require('telescope.builtin').keymaps()
-end, { desc = '[S]earch [K]eymaps' })
-
-vim.keymap.set('n', '<leader>ut', function()
-    require('telescope').extensions.undo.undo()
-end, { desc = '[U]ndo [T]ree' })
-
-vim.keymap.set('n', '<leader>ut', function()
-    require('telescope').extensions.undo.undo()
-end, { desc = '[U]ndo [T]ree' })
-
-vim.keymap.set('n', '<leader>cr', ':lua require"utils.runner".run()<CR>')
+-- Other mappings
+map('n', '<leader>ut', function() require('telescope').extensions.undo.undo() end,
+    { noremap = true, silent = true, desc = '[U]ndo [T]ree' })
+map('n', '<leader>cr', ':lua require"utils.runner".run()<CR>', default_opts)

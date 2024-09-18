@@ -1,12 +1,17 @@
 return {
     'akinsho/toggleterm.nvim',
     cmd = { 'ToggleTerm', 'TermExec' },
-    config = function()
-        require('toggleterm').setup({
-            persist_mode = true,
-            winbar = {
-                enabled = true,
-            },
-        })
-    end
+    keys = {
+        { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
+    },
+    opts = {
+        persist_mode = true,
+        winbar = {
+            enabled = true,
+        },
+        open_mapping = [[<c-\>]],
+        shade_terminals = false,
+    },
+    version = "*",
 }
+
