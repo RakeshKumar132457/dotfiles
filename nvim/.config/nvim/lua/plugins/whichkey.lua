@@ -14,16 +14,9 @@ return {
                 ["<cr>"] = "RET",     -- Replace <cr> with RET
                 ["<tab>"] = "TAB",    -- Replace <tab> with TAB
             },
-            win = {
-                border = "single",        -- Use single border for the window
-                position = "bottom",      -- Position the popup at the bottom
-                margin = { 1, 0, 1, 0 },  -- Set window margins
-                padding = { 2, 2, 2, 2 }, -- Set padding inside the window
-            },
             layout = {
-                spacing = 6,       -- Set spacing between columns
+                spacing = 6, -- Set spacing between columns
             },
-            triggers = { "auto" }, -- Automatically trigger which-key
         })
     end,
 }
