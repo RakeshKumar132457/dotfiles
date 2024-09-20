@@ -30,11 +30,6 @@ return {
             gitsigns.setup({
                 on_attach = function(bufnr)
                     local gs = package.loaded.gitsigns
-                    local map = function(mode, lhs, rhs, opts)
-                        opts = opts or {}
-                        opts.buffer = bufnr
-                        vim.keymap.set(mode, lhs, rhs, opts)
-                    end
 
                     -- Navigation
                     vim.keymap.set('n', ']c', function()
