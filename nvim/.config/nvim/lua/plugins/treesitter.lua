@@ -1,39 +1,71 @@
 local function toggle_treesitter_feature(feature)
     local ts_config = require('nvim-treesitter.configs')
-    local current = ts_config.get_module(feature).enable
-    ts_config.setup({ [feature] = { enable = not current } })
-    vim.notify(feature .. " is now " .. (not current and "enabled" or "disabled"))
+    local module = ts_config.get_module(feature)
+
+    if module and module.enable ~= nil then
+        local current_state = module.enable
+        ts_config.setup({
+            -- Add the missing required fields here
+            sync_install = false,
+            auto_install = false,
+            ensure_installed = {}, -- Keep empty to avoid modifying installed parsers
+            ignore_install = {},
+            modules = {
+                [feature] = {
+                    enable = not current_state,
+                    disable = {}, -- Disable field required by TSModule
+                    keymaps = {}, -- Required for TSModule
+                    is_supported = function(lang)
+                        return require('nvim-treesitter.parsers').get_parser_configs()[lang] ~= nil
+                    end,
+                    module_path = '',                          -- Required module path field
+                    attach = function() end,                   -- Function to attach Treesitter to a buffer
+                    detach = function() end,                   -- Function to detach Treesitter from a buffer
+                    enabled_buffers = {},                      -- Buffers where the module is enabled
+                    additional_vim_regex_highlighting = false, -- Matching field
+                }
+            }
+        })
+        vim.notify(feature .. " is now " .. (not current_state and "enabled" or "disabled"))
+    else
+        vim.notify("Feature " .. feature .. " is not available.", vim.log.levels.ERROR)
+    end
 end
 
+-- The rest of the configuration remains the same
 return {
     {
         'nvim-treesitter/nvim-treesitter',
-        event = { "BufWinEnter", "BufNewFile" }, -- Delay load to after buffer is shown
+        event = { "BufWinEnter", "BufNewFile" },
         build = ":TSUpdate",
         dependencies = {
-            { 'nvim-treesitter/nvim-treesitter-textobjects', event = "VeryLazy" }, -- Load only when needed
+            { 'nvim-treesitter/nvim-treesitter-textobjects', event = "VeryLazy" },
         },
         cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
         config = function()
             require('nvim-treesitter.configs').setup({
+                -- Global setup for Treesitter
                 sync_install = false,
-                auto_install = false,                   -- Disable auto installation for better performance
+                auto_install = false,
+                ensure_installed = { "lua", "vim", "javascript", "typescript", "python" },
+                ignore_install = {},
+                modules = {},
                 highlight = {
-                    enable = true,                      -- Keep highlight enabled
+                    enable = true,
                     disable = function(_, buf)
-                        local max_filesize = 100 * 1024 -- 100 KB max file size
+                        local max_filesize = 100 * 1024 -- 100 KB file size limit for highlighting
                         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                         if ok and stats and stats.size > max_filesize then
-                            return true -- Disable on large files
+                            return true
                         end
                     end,
-                    additional_vim_regex_highlighting = false, -- Disable regex-based highlighting
+                    additional_vim_regex_highlighting = false,
                 },
-                indent = { enable = true },                    -- Enable indent, as it's lightweight
+                indent = { enable = true },
                 textobjects = {
                     select = {
-                        enable = false, -- Disabled by default to avoid extra load
-                        lookahead = true,
+                        enable = false,   -- Disabled by default for performance
+                        lookahead = true, -- Allow lookahead for better object selection
                         keymaps = {
                             ["af"] = "@function.outer",
                             ["if"] = "@function.inner",
@@ -42,10 +74,9 @@ return {
                         },
                     },
                 },
-                ensure_installed = { "lua", "vim", "javascript", "typescript", "python" }, -- Minimize installed parsers
             })
 
-            -- Defer parser installation check by 2000ms for better startup performance
+            -- Deferred parser installation
             vim.defer_fn(function()
                 local parsers = { "lua", "vim", "javascript", "typescript", "python" }
                 local ts_install = require('nvim-treesitter.install')
@@ -64,3 +95,4 @@ return {
         },
     },
 }
+
