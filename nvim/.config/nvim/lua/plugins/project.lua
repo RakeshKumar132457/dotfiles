@@ -3,8 +3,8 @@ return {
     event = "VeryLazy",
     opts = {
         show_hidden = true,
-        scope_chdir = 'win',
-        silent_chdir = true,
+        scope_chdir = '',
+        silent_chdir = false,
         datapath = vim.fn.stdpath("data"),
     },
     config = function(_, opts)
