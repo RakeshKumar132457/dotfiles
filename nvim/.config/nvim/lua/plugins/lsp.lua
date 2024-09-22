@@ -152,10 +152,11 @@ return {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
-            { "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
-            { "hrsh7th/cmp-buffer",   event = "InsertEnter" },
-            { "hrsh7th/cmp-path",     event = "InsertEnter" },
-            { "hrsh7th/cmp-cmdline",  event = "CmdlineEnter" },
+            { "hrsh7th/cmp-nvim-lsp",                event = "InsertEnter" },
+            { "hrsh7th/cmp-buffer",                  event = "InsertEnter" },
+            { "hrsh7th/cmp-path",                    event = "InsertEnter" },
+            { "hrsh7th/cmp-cmdline",                 event = "CmdlineEnter" },
+            { "hrsh7th/cmp-nvim-lsp-signature-help", event = "InsertEnter" },
             {
                 "L3MON4D3/LuaSnip",
                 event = "InsertEnter",
@@ -214,6 +215,7 @@ return {
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
+                    { name = 'nvim_lsp_signature_help' },
                 }, {
                     { name = 'buffer' },
                     { name = 'path' },
