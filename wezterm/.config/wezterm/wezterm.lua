@@ -4,7 +4,7 @@ return {
     enable_tab_bar = false,
     font = wezterm.font("Iosevka Term Nerd Font Mono"),
     default_prog = { "zellij" },
-    font_size = 12.0,
+    font_size = 11.0,
     color_scheme = "Dracula",
     underline_position = '-8px',
     term = "xterm-256color",
