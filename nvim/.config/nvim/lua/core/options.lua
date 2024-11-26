@@ -1,9 +1,9 @@
 local opt = vim.opt
 
 local options = {
-    softtabstop = 4,
+    softtabstop = 2,
     tabstop = 4,
-    shiftwidth = 4,
+    shiftwidth = 2,
     expandtab = true,
     smartindent = true,
     hlsearch = true,

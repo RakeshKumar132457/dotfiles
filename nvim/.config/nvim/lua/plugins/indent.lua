@@ -21,5 +21,10 @@ return {
         'nmac427/guess-indent.nvim',
         event = { "BufReadPost", "BufNewFile" },
         opts = {}, -- Use empty table for default options
+        enabled = false
+    },
+    {
+        'tpope/vim-sleuth',
+        event = { "BufReadPre", "BufNewFile" },
     }
 }

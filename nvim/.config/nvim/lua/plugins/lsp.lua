@@ -36,7 +36,16 @@ return {
                     null_ls.setup({
                         sources = {
                             null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "120" } }),
-                            null_ls.builtins.formatting.prettier.with({ extra_args = { "--tab-width", "4", "--print-width", "120" } }),
+                            null_ls.builtins.formatting.prettier.with({
+                                extra_args = {
+                                    "--tab-width",
+                                    "2",
+                                    "--print-width",
+                                    "120",
+                                    "--use-tabs",
+                                    "false"
+                                }
+                            }),
                         }
                     })
                 end
@@ -185,6 +194,15 @@ return {
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered()
+                },
+                formatting = {
+                    expandable_indicator = true, -- Add this line
+                    fields = { "abbr", "kind", "menu" },
+                    format = function(entry, vim_item)
+                        local source_detail = entry.completion_item.detail or ""
+                        vim_item.menu = source_detail
+                        return vim_item
+                    end
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
