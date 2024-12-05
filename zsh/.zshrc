@@ -72,3 +72,7 @@ eval "$(starship init zsh)"
 # End of Configuration
 # -----------------------
 
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
