@@ -36,10 +36,37 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 zstyle :compinstall filename '/home/rakesh/.zshrc'
 
 # -----------------------
-# Aliases
+# User Aliases and Commands
 # -----------------------
 alias ls='exa'
+function create-ts-project(){
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: create-ts-project <project-name> [initial-file-name]"
+        return 1
+    fi
+    local project_name=$1
+    local file_name=${2:-"index"}
 
+    mkdir -p "$project_name" && cd "$project_name"
+
+    npm init -y
+    npm pkg set type="module"
+    npm pkg set main="$file_name.ts"
+    npm pkg set scripts.test="jest"
+
+    npm i -D jest @types/jest ts-jest
+    echo '
+/** @type {import("ts-jest").JestConfigWithTsJest} */
+export default {
+  preset: "ts-jest"
+};' > jest.config.js
+
+    mkdir src
+    touch "src/$file_name.ts"
+    touch "src/$file_name.test.ts"
+
+    code .
+}
 
 # Zsh Syntax Highlighting
 # Check if syntax highlighting plugin exists before sourcing
