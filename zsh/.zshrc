@@ -39,33 +39,61 @@ zstyle :compinstall filename '/home/rakesh/.zshrc'
 # User Aliases and Commands
 # -----------------------
 alias ls='exa'
+
 function create-ts-project(){
     if [ "$#" -lt 1 ]; then
-        echo "Usage: create-ts-project <project-name> [initial-file-name]"
+        echo "Usage: create-ts-project <project-name> [initial-file-name] [account-type] [visibility]"
         return 1
     fi
+    
     local project_name=$1
     local file_name=${2:-"index"}
-
+    local account_type=${3:-"personal"}
+    local visibility=${4:-"private"}
+    
     mkdir -p "$project_name" && cd "$project_name"
-
+    
     npm init -y
+    
+    git init
+    
+    if [ "$account_type" = "personal" ]; then
+        git config user.email "rakesh.kumar.132457@gmail.com"
+        git config user.name "Rakesh Kumar"
+        git remote add origin "git@github.com-personal:RakeshKumar132457/$project_name.git"
+    elif [ "$account_type" = "work" ]; then
+        git config user.email "rakesh@incubyte.co"
+        git config user.name "Rakesh Kumar"
+        git remote add origin "git@github.com-work:rakesh-inc/$project_name.git"
+    else
+        echo "Invalid account type"
+        return 1
+    fi
+    
     npm pkg set type="module"
     npm pkg set main="$file_name.ts"
     npm pkg set scripts.test="jest"
-
-    npm i -D jest @types/jest ts-jest
+    npm i -D typescript @types/node jest @types/jest ts-jest ts-node
     echo '
 /** @type {import("ts-jest").JestConfigWithTsJest} */
 export default {
   preset: "ts-jest"
 };' > jest.config.js
-
+    npx tsc --init
     mkdir src
     touch "src/$file_name.ts"
     touch "src/$file_name.test.ts"
-
+    echo 'node_modules/
+dist/
+coverage/
+.DS_Store
+*.log' > .gitignore
     code .
+
+    echo -e "\nProject created with the following git configuration:"
+    echo "Email: $(git config user.email)"
+    echo "Name: $(git config user.name)"
+    echo "Remote: $(git remote -v)"
 }
 
 # Zsh Syntax Highlighting
