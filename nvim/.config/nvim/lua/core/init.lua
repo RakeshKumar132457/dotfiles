@@ -1,3 +1,9 @@
-require('core.options')
-require('core.lazy')
-require('core.keymaps')
+local M = {}
+
+M.setup = function(opts)
+    require('core.options').setup()
+    require('core.lazy').setup()
+    require('core.keymaps').setup()
+end
+
+return M

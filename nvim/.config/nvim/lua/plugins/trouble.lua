@@ -1,7 +1,7 @@
 return {
     "folke/trouble.nvim",
-    cmd = { "Trouble" },                              -- Lazy load only on these commands
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- Ensure you have the devicons
+    cmd = { "Trouble" },                              
+    dependencies = { "nvim-tree/nvim-web-devicons" }, 
     opts = {},
     keys = {
         {

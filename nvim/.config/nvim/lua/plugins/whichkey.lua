@@ -1,21 +1,21 @@
 return {
     "folke/which-key.nvim",
-    event = "VeryLazy", -- Lazy load to improve startup time
+    event = "VeryLazy",
     config = function()
         require('which-key').setup({
             plugins = {
                 spelling = {
-                    enabled = true,   -- Enable spelling suggestions
-                    suggestions = 20, -- Show 20 suggestions
+                    enabled = true,
+                    suggestions = 20,
                 },
             },
             replace = {
-                ["<leader>"] = "SPC", -- Replace <leader> with SPC
-                ["<cr>"] = "RET",     -- Replace <cr> with RET
-                ["<tab>"] = "TAB",    -- Replace <tab> with TAB
+                ["<leader>"] = "SPC",
+                ["<cr>"] = "RET",
+                ["<tab>"] = "TAB",
             },
             layout = {
-                spacing = 6, -- Set spacing between columns
+                spacing = 6,
             },
         })
     end,

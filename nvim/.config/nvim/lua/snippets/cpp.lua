@@ -4,7 +4,6 @@ local repeat_node = require('luasnip.extras').rep
 
 
 return {
-    -- Init snippet: A template for a basic C++ program structure
     luasnip.snippet('init', format(
         [==[
             #include <bits/stdc++.h>
@@ -22,7 +21,6 @@ return {
         ]==], { luasnip.insert_node(1) }
     )),
 
-    -- Comment snippet: A template for a block comment
     luasnip.snippet('cmt', format(
         [[
             /**
@@ -31,14 +29,12 @@ return {
         ]], { luasnip.insert_node(1) }
     )),
 
-    -- Object creation snippet: A shorthand for creating a new object using dynamic memory
     luasnip.snippet('obj', format(
         [[
             {1} *{2}= new {3}();
         ]], { luasnip.insert_node(1), luasnip.insert_node(2), repeat_node(1) }
     )),
 
-    -- Debug macro snippet: A macro for debugging variables
     luasnip.snippet('debug', format(
         [[
         #define dbg(v) \
@@ -46,7 +42,6 @@ return {
         ]], {}
     )),
 
-    -- File input-output snippet: A shorthand for reading from and writing to files
     luasnip.snippet('inp', format(
         [[
             ifstream fin("input.txt");
@@ -54,7 +49,6 @@ return {
         ]], {}
     )),
 
-    -- Test case array processing snippet: A template for reading test cases from a file and processing them
     luasnip.snippet('tcarr', format(
         [[
             string fileLine;
@@ -72,4 +66,3 @@ return {
         }
     ))
 }
-

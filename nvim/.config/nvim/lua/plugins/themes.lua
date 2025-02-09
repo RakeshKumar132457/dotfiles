@@ -8,5 +8,5 @@ return {
         })
         vim.cmd([[colorscheme catppuccin]])
     end,
-    enabled = false
+    enabled = true
 }

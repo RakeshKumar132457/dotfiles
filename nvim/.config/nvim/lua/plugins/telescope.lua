@@ -1,6 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope" }, -- Lazy load on command
+    cmd = { "Telescope" },
     dependencies = {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
@@ -8,7 +8,7 @@ return {
             "nvim-telescope/telescope-fzf-native.nvim",
             build =
             "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-            cond = vim.fn.executable("cmake") == 1, -- Only install if cmake is available
+            cond = vim.fn.executable("cmake") == 1,
         }
     },
     config = function()
@@ -27,8 +27,7 @@ return {
                     "--smart-case",
                     "--ignore",
                     "--hidden",
-                    "--trim", -- Can remove this if not needed for performance
-                    -- Exclude unnecessary files
+                    "--trim",
                     "--glob=!**/.git/*",
                     "--glob=!**/.idea/*",
                     "--glob=!**/.vscode/*",
@@ -40,13 +39,13 @@ return {
                 },
                 mappings = {
                     n = {
-                        ["<M-p>"] = action_layout.toggle_preview, -- Normal mode mapping for preview toggle
+                        ["<M-p>"] = action_layout.toggle_preview,
                     },
                     i = {
-                        ["<M-p>"] = action_layout.toggle_preview, -- Insert mode mapping for preview toggle
+                        ["<M-p>"] = action_layout.toggle_preview,
                     },
                 },
-                file_ignore_patterns = { -- Extra ignore patterns to exclude
+                file_ignore_patterns = {
                     "node_modules",
                     ".git/",
                     "build/",
@@ -55,7 +54,7 @@ return {
             },
             pickers = {
                 find_files = {
-                    hidden = true, -- Search hidden files
+                    hidden = true,
                     find_command = {
                         "rg",
                         "--files",
@@ -73,11 +72,10 @@ return {
             },
         })
 
-        -- Load additional extensions
-        require('telescope').load_extension('undo') -- Load the undo extension
+        require('telescope').load_extension('undo')
 
         if vim.fn.executable("cmake") == 1 then
-            require('telescope').load_extension('fzf') -- Conditionally load fzf-native if cmake is available
+            require('telescope').load_extension('fzf')
         end
     end
 }

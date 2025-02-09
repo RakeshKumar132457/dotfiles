@@ -136,7 +136,6 @@ return {
                 }
             end
 
-            -- LSP-related keymaps
             vim.keymap.set({ 'n', 'v' }, '<leader>fb', function() vim.lsp.buf.format({ async = true }) end,
                 { silent = true, desc = '[F]ormatting [B]uffer' })
             vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition,
@@ -196,7 +195,7 @@ return {
                     documentation = cmp.config.window.bordered()
                 },
                 formatting = {
-                    expandable_indicator = true, -- Add this line
+                    expandable_indicator = true,
                     fields = { "abbr", "kind", "menu" },
                     format = function(entry, vim_item)
                         local source_detail = entry.completion_item.detail or ""
@@ -249,7 +248,6 @@ return {
                 })
             })
 
-            -- LuaSnip keymaps
             vim.keymap.set({ 'i', 's' }, '<C-k>', function()
                 if luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
@@ -261,13 +259,12 @@ return {
                 end
             end, { silent = true })
 
-            -- Update capabilities for LSP
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
             if ok then
                 capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
             end
-            -- Update LSP configs with new capabilities
+
             local lspconfig = require('lspconfig')
             for lsp, _ in pairs(require('lspconfig.configs')) do
                 if lspconfig[lsp].setup then
