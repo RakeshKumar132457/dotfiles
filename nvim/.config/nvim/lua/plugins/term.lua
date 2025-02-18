@@ -11,5 +11,4 @@ return {
         },
         shade_terminals = false,
     },
-    version = "*",
 }

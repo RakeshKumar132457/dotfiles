@@ -25,7 +25,7 @@ return {
                 "folke/neodev.nvim",
                 ft = "lua",
                 config = function()
-                    require('neodev').setup({})
+                    require('neodev').setup()
                 end
             },
             {
@@ -111,7 +111,7 @@ return {
                 lineFoldingOnly = true
             }
 
-            local on_attach = function(client, bufnr)
+            local on_attach = function(_, bufnr)
                 vim.api.nvim_create_autocmd("CursorHold", {
                     buffer = bufnr,
                     callback = function()

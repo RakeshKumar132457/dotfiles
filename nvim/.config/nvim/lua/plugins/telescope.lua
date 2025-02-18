@@ -73,9 +73,7 @@ return {
         })
 
         require('telescope').load_extension('undo')
-
-        if vim.fn.executable("cmake") == 1 then
-            require('telescope').load_extension('fzf')
-        end
+        require("telescope").load_extension("projects")
+        require('telescope').load_extension('fzf')
     end
 }

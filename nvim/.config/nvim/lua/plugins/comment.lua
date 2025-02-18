@@ -1,8 +1,14 @@
 return {
     "numToStr/Comment.nvim",
-    keys = {
-        { "gc", mode = { "n", "v" } },
-        { "gb", mode = { "n", "v" } },
+    event = { "VeryLazy" },
+    dependencies = {
+        'JoosepAlviste/nvim-ts-context-commentstring'
     },
-    config = true,
+    config = function()
+        require("Comment").setup({
+            pre_hook = function()
+                return vim.bo.commentstring
+            end
+        })
+    end,
 }
