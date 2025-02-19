@@ -123,7 +123,7 @@ return {
 
             vim.keymap.set('n', '<leader>fb', vim.lsp.buf.format,
                 { silent = true, desc = 'Format buffer' })
-            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
+            vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action,
                 { silent = true, desc = 'Code actions' })
             vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
                 { silent = true, desc = 'Rename symbol' })
