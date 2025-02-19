@@ -29,6 +29,9 @@ M.setup = function()
         { key = '<leader>sd', func = 'diagnostics',          desc = '[S]earch [D]iagnostics' },
         { key = '<leader>sr', func = 'oldfiles',             desc = '[S]earch [R]ecent files' },
         { key = '<leader>sk', func = 'keymaps',              desc = '[S]earch [K]eymaps' },
+        { key = '<leader>gr', func = 'lsp_references',       desc = '[G]oto [R]eferences' },
+        { key = '<leader>gd', func = 'lsp_definitions',      desc = '[G]oto [D]efinition' },
+        { key = '<leader>gi', func = 'lsp_implementations',  desc = '[G]oto [I]mplementation' },
     }
     for _, mapping in ipairs(telescope_mappings) do
         telescope_map(mapping.key, mapping.func, mapping.desc)
