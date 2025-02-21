@@ -38,7 +38,7 @@ zstyle :compinstall filename '/home/rakesh/.zshrc'
 # -----------------------
 # User Aliases and Commands
 # -----------------------
-alias ls='exa'
+alias ls='eza'
 
 function create-ts-project(){
     if [ "$#" -lt 1 ]; then
@@ -126,11 +126,6 @@ eval "$(starship init zsh)"
 # -----------------------
 # End of Configuration
 # -----------------------
-
-
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
