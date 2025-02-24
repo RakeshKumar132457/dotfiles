@@ -13,6 +13,7 @@ return {
         { "<leader>tl", function() require("neotest").run.run_last() end,              desc = '[T]est [L]ast' },
         { "<leader>ts", function() require("neotest").summary.toggle() end,            desc = '[T]est [S]ummary' },
         { "<leader>to", function() require("neotest").output.open() end,               desc = '[T]est [O]utput' },
+        { "<leader>ta", function() require("neotest").run.run(vim.fn.getcwd()) end,    desc = '[T]est [A]ll' },
     },
     config = function()
         require("neotest").setup({
@@ -29,4 +30,3 @@ return {
         })
     end
 }
-
