@@ -46,7 +46,14 @@ return {
                         sources = {
                             null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "120" } }),
                             null_ls.builtins.formatting.prettier.with({
-                                extra_args = { "--tab-width", "2", "--print-width", "120", "--use-tabs", "false" }
+                                prefer_local = "node_modules/.bin",
+                                dynamic_command = function(params)
+                                    if has_prettierrc_file() then
+                                        return {}
+                                    else
+                                        return { "--tab-width", "2", "--print-width", "120", "--use-tabs", "false" }
+                                    end
+                                end,
                             }),
                         }
                     })
