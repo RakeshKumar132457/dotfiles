@@ -28,6 +28,16 @@ M.setup = function()
         foldlevelstart = 99,
         foldenable = true,
         maxmempattern = 2000000,
+        undolevels = 100000,
+        splitbelow = true,
+        splitright = true,
+        scrolloff = 10,
+        winminwidth = 5,
+        wildmenu = true,
+        wildmode = 'longest:full,full',
+        pumheight = 10,
+        inccommand = 'split',
+        wrap = true
     }
 
     for k, v in pairs(options) do
