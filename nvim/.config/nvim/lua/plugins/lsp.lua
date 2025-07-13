@@ -165,7 +165,67 @@ return {
                 nerd_font_variant = 'mono'
             },
             sources = {
-                default = { 'lsp', 'path', 'buffer', 'snippets' }
+                default = { 'lsp', 'path', 'buffer', 'snippets' },
+                providers = {
+                    lsp = {
+                        name = 'LSP',
+                        module = 'blink.cmp.sources.lsp',
+                        score_offset = 10,
+                        transform_items = function(ctx, items)
+                            local seen = {}
+                            local deduplicated = {}
+                            for _, item in ipairs(items) do
+                                local key = item.label .. (item.detail or "")
+                                if not seen[key] then
+                                    seen[key] = true
+                                    item.source_name = "LSP"
+                                    table.insert(deduplicated, item)
+                                end
+                            end
+                            return deduplicated
+                        end
+                    },
+                    buffer = {
+                        name = 'Buffer',
+                        module = 'blink.cmp.sources.buffer',
+                        score_offset = -5,
+                        min_keyword_length = 3,
+                        transform_items = function(ctx, items)
+                            local seen = {}
+                            local deduplicated = {}
+                            for _, item in ipairs(items) do
+                                if not seen[item.label] then
+                                    seen[item.label] = true
+                                    item.source_name = "Buffer"
+                                    table.insert(deduplicated, item)
+                                end
+                            end
+                            return deduplicated
+                        end
+                    },
+                    path = {
+                        name = 'Path',
+                        module = 'blink.cmp.sources.path',
+                        score_offset = 0,
+                        transform_items = function(ctx, items)
+                            for _, item in ipairs(items) do
+                                item.source_name = "Path"
+                            end
+                            return items
+                        end
+                    },
+                    snippets = {
+                        name = 'Snippets',
+                        module = 'blink.cmp.sources.snippets',
+                        score_offset = 5,
+                        transform_items = function(ctx, items)
+                            for _, item in ipairs(items) do
+                                item.source_name = "Snippet"
+                            end
+                            return items
+                        end
+                    }
+                }
             },
             snippets = {
                 preset = 'luasnip'
@@ -174,8 +234,9 @@ return {
                 menu = {
                     draw = {
                         columns = {
-                            { "label",     "label_description", gap = 1 },
-                            { "kind_icon", "kind",              gap = 1 }
+                            { "label",       "label_description", gap = 1 },
+                            { "kind_icon",   "kind",              gap = 1 },
+                            { "source_name", gap = 1 },
                         }
                     },
                     border = "single",
@@ -187,7 +248,11 @@ return {
                 },
                 ghost_text = { enabled = false },
             },
-            signature = { enabled = true, window = { border = "single" } }
+            signature = {
+                enabled = true,
+                window = { border = "single" }
+            }
         }
     }
+
 }
