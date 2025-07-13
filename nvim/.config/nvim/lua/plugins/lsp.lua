@@ -15,16 +15,16 @@ return {
                 build = ":MasonUpdate",
                 config = true,
             },
-            {
-                "williamboman/mason-lspconfig.nvim",
-                cmd = { "LspInstall", "LspUninstall" },
-                opts = {
-                    ensure_installed = {
-                        'emmet_ls', 'clangd', 'ts_ls', 'pyright',
-                        'rust_analyzer', 'html', 'lua_ls', 'tailwindcss'
-                    }
-                }
-            },
+            -- {
+            --     "williamboman/mason-lspconfig.nvim",
+            --     cmd = { "LspInstall", "LspUninstall" },
+            --     opts = {
+            --         ensure_installed = {
+            --             'emmet_ls', 'clangd', 'ts_ls', 'pyright',
+            --             'rust_analyzer', 'html', 'lua_ls', 'tailwindcss'
+            --         }
+            --     }
+            -- },
             { "folke/neodev.nvim", ft = "lua", opts = {} },
             {
                 "j-hui/fidget.nvim",
