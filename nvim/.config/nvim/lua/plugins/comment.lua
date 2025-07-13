@@ -1,6 +1,10 @@
 return {
     "numToStr/Comment.nvim",
-    event = { "VeryLazy" },
+    keys = {
+        { "gc", mode = { "n", "v" }, desc = "Comment toggle linewise" },
+        { "gb", mode = { "n", "v" }, desc = "Comment toggle blockwise" },
+    },
+
     dependencies = {
         'JoosepAlviste/nvim-ts-context-commentstring'
     },

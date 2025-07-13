@@ -1,41 +1,39 @@
 return {
     {
         'neovim/nvim-lspconfig',
-        event = { "BufReadPost" },
+        event = { "BufReadPre", "BufNewFile" },
         cmd = "LspInfo",
+        keys = {
+            { "<leader>fb", vim.lsp.buf.format,      desc = "Format buffer", mode = { "n", "v" } },
+            { "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions",  mode = { "n", "v" } },
+            { "<leader>rn", vim.lsp.buf.rename,      desc = "Rename symbol" },
+        },
         dependencies = {
             {
                 "williamboman/mason.nvim",
                 cmd = "Mason",
                 build = ":MasonUpdate",
-                config = true
+                config = true,
             },
             {
                 "williamboman/mason-lspconfig.nvim",
                 cmd = { "LspInstall", "LspUninstall" },
                 opts = {
                     ensure_installed = {
-                        'emmet_ls',
-                        'clangd',
-                        'ts_ls',
-                        'pyright',
-                        'rust_analyzer',
-                        'html',
-                        'lua_ls',
-                        'tailwindcss'
+                        'emmet_ls', 'clangd', 'ts_ls', 'pyright',
+                        'rust_analyzer', 'html', 'lua_ls', 'tailwindcss'
                     }
                 }
             },
-            {
-                "folke/neodev.nvim",
-                ft = "lua",
-                opts = {}
-            },
+            { "folke/neodev.nvim", ft = "lua", opts = {} },
             {
                 "j-hui/fidget.nvim",
-                tag = "legacy",
                 event = "LspAttach",
-                opts = {}
+                opts = {
+                    notification = {
+                        window = { winblend = 0 }
+                    }
+                }
             },
             {
                 "nvimtools/none-ls.nvim",
@@ -66,23 +64,25 @@ return {
 
             vim.diagnostic.config({
                 virtual_text = false,
-                signs = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "",
+                        [vim.diagnostic.severity.WARN]  = "",
+                        [vim.diagnostic.severity.HINT]  = "",
+                        [vim.diagnostic.severity.INFO]  = "",
+                    },
+                },
                 underline = true,
                 update_in_insert = false,
                 severity_sort = true,
             })
 
-            local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-            end
-
+            -- Custom diagnostic sign highlights
             local hl_groups = {
                 DiagnosticUnderlineError = { undercurl = true, sp = "#ff0000" },
-                DiagnosticUnderlineWarn = { undercurl = true, sp = "#ffaa00" },
-                DiagnosticUnderlineHint = { undercurl = true, sp = "#00ff00" },
-                DiagnosticUnderlineInfo = { undercurl = true, sp = "#0000ff" },
+                DiagnosticUnderlineWarn  = { undercurl = true, sp = "#ffaa00" },
+                DiagnosticUnderlineHint  = { undercurl = true, sp = "#00ff00" },
+                DiagnosticUnderlineInfo  = { undercurl = true, sp = "#0000ff" },
             }
             for hl, opts in pairs(hl_groups) do
                 vim.api.nvim_set_hl(0, hl, opts)
@@ -106,14 +106,17 @@ return {
                 vim.api.nvim_create_autocmd("CursorHold", {
                     buffer = bufnr,
                     callback = function()
-                        vim.diagnostic.open_float(nil, {
-                            focusable = false,
-                            close_events = { "CursorMoved", "InsertEnter" },
-                            border = 'rounded',
-                            source = 'always',
-                            prefix = '',
-                            scope = 'cursor',
-                        })
+                        local diagnostics = vim.diagnostic.get(bufnr, { lnum = vim.fn.line('.') - 1 })
+                        if #diagnostics > 0 then
+                            vim.diagnostic.open_float(nil, {
+                                focusable = false,
+                                close_events = { "CursorMoved", "InsertEnter" },
+                                border = 'rounded',
+                                source = 'always',
+                                prefix = '',
+                                scope = 'cursor',
+                            })
+                        end
                     end
                 })
             end
@@ -127,14 +130,7 @@ return {
                     settings = config.settings,
                 })
             end
-
-            vim.keymap.set('n', '<leader>fb', vim.lsp.buf.format,
-                { silent = true, desc = 'Format buffer' })
-            vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action,
-                { silent = true, desc = 'Code actions' })
-            vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
-                { silent = true, desc = 'Rename symbol' })
-        end
+        end,
     },
 
     {
@@ -149,15 +145,10 @@ return {
 
             local luasnip = require("luasnip")
             vim.keymap.set({ 'i', 's' }, '<C-k>', function()
-                if luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                end
+                if luasnip.jumpable(-1) then luasnip.jump(-1) end
             end, { silent = true })
-
             vim.keymap.set({ 'i', 's' }, '<C-j>', function()
-                if luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                end
+                if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
             end, { silent = true })
         end
     },
@@ -182,11 +173,18 @@ return {
             completion = {
                 menu = {
                     draw = {
-                        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } }
+                        columns = {
+                            { "label",     "label_description", gap = 1 },
+                            { "kind_icon", "kind",              gap = 1 }
+                        }
                     },
                     border = "single",
                 },
-                documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = 'single' } },
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 500,
+                    window = { border = 'single' }
+                },
                 ghost_text = { enabled = false },
             },
             signature = { enabled = true, window = { border = "single" } }

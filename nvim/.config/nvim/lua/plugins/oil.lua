@@ -5,12 +5,9 @@ return {
     keys = {
         {
             "<leader>ft",
-            function() require("oil").toggle_float() end,
+            "<cmd>Oil --float<cr>",
             desc = "[F]ile [T]ree (Toggle Floating)",
-            noremap = true,
-            silent = true
         },
-
     },
     config = function()
         require('oil').setup({
