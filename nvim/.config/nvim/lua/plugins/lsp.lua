@@ -24,7 +24,7 @@ return {
                 opts = {
                     ensure_installed = {
                         'lua_ls', 'clangd', 'ts_ls', 'pyright',
-                        'rust_analyzer', 'html', 'tailwindcss'
+                        'rust_analyzer', 'tailwindcss'
                     },
                     automatic_installation = true,
                 }
@@ -41,7 +41,7 @@ return {
             },
             {
                 "nvimtools/none-ls.nvim",
-                event = { "BufReadPre", "BufNewFile" },
+                event = "VeryLazy",
                 dependencies = { "nvim-lua/plenary.nvim" },
                 config = function()
                     local null_ls = require('null-ls')
@@ -75,8 +75,6 @@ return {
             'saghen/blink.cmp'
         },
         config = function()
-            local lspconfig = require('lspconfig')
-
             -- Diagnostic configuration
             vim.diagnostic.config({
                 virtual_text = false,
@@ -110,7 +108,7 @@ return {
                 vim.api.nvim_set_hl(0, hl, opts)
             end
 
-            -- MODERN: Use LspAttach autocmd instead of on_attach
+            -- MODERN: Use LspAttach autocmd
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
                 callback = function(event)
@@ -130,7 +128,7 @@ return {
                     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
                     map("K", vim.lsp.buf.hover, "Hover Documentation")
 
-                    -- Format (modern API)
+                    -- Format
                     map("<leader>fb", function()
                         vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
                     end, "[F]ormat [B]uffer")
@@ -155,7 +153,7 @@ return {
                         end
                     })
 
-                    -- Highlight references under cursor
+                    -- Highlight references
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
                     if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                         local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
@@ -179,7 +177,7 @@ return {
                         })
                     end
 
-                    -- Inlay hints (Neovim 0.10+)
+                    -- Inlay hints
                     if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
                         map("<leader>th", function()
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
@@ -246,16 +244,18 @@ return {
                 }
             }
 
-            -- Setup Mason handlers
-            require("mason-lspconfig").setup({
-                handlers = {
-                    function(server_name)
-                        local server = servers[server_name] or {}
-                        server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                        lspconfig[server_name].setup(server)
-                    end,
-                },
-            })
+            -- NEW API: Configure each server
+            for server, config in pairs(servers) do
+                vim.lsp.config(server, {
+                    capabilities = capabilities,
+                    settings = config.settings or {},
+                })
+            end
+
+            -- NEW API: Enable servers
+            for server, _ in pairs(servers) do
+                vim.lsp.enable(server)
+            end
         end,
     },
 
