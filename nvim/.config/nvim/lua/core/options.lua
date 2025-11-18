@@ -12,13 +12,13 @@ M.setup = function()
         hlsearch = true,
         ignorecase = true,
         smartcase = true,
-        showmode = true,
+        showmode = false,
         number = true,
         relativenumber = true,
         signcolumn = 'yes',
         termguicolors = true,
         cursorline = true,
-        mouse = nil,
+        mouse = "",
         undofile = true,
         updatetime = 250,
         completeopt = 'menuone,noselect',
@@ -38,9 +38,10 @@ M.setup = function()
         foldlevel = 99,
         foldmethod = "expr",
         foldexpr = 'v:lua.vim.treesitter.foldexpr()',
-        -- foldexpr = 'v:lua.vim.lsp.foldexpr()',
         foldtext = "",
         foldcolumn = "1",
+        timeoutlen = 300,
+        clipboard = "unnamedplus",
     }
 
     for k, v in pairs(options) do
@@ -51,15 +52,8 @@ M.setup = function()
         eob = " ",
         fold = "─",
         foldsep = "│",
-        foldclose = "",
-        foldopen = "",
-    })
-
-    vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = "*",
-        callback = function()
-            vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
-        end,
+        foldclose = "▸",
+        foldopen = "▾",
     })
 end
 

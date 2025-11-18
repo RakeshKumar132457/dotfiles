@@ -1,30 +1,34 @@
 return {
     {
         'neovim/nvim-lspconfig',
-        event = { "BufReadPre", "BufNewFile" },
+        event = "VeryLazy",
         cmd = "LspInfo",
-        keys = {
-            { "<leader>fb", vim.lsp.buf.format,      desc = "Format buffer", mode = { "n", "v" } },
-            { "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions",  mode = { "n", "v" } },
-            { "<leader>rn", vim.lsp.buf.rename,      desc = "Rename symbol" },
-        },
         dependencies = {
             {
                 "williamboman/mason.nvim",
                 cmd = "Mason",
                 build = ":MasonUpdate",
-                config = true,
+                opts = {
+                    ui = {
+                        border = "rounded",
+                        icons = {
+                            package_installed = "✓",
+                            package_pending = "➜",
+                            package_uninstalled = "✗"
+                        }
+                    }
+                },
             },
-            -- {
-            --     "williamboman/mason-lspconfig.nvim",
-            --     cmd = { "LspInstall", "LspUninstall" },
-            --     opts = {
-            --         ensure_installed = {
-            --             'emmet_ls', 'clangd', 'ts_ls', 'pyright',
-            --             'rust_analyzer', 'html', 'lua_ls', 'tailwindcss'
-            --         }
-            --     }
-            -- },
+            {
+                "williamboman/mason-lspconfig.nvim",
+                opts = {
+                    ensure_installed = {
+                        'lua_ls', 'clangd', 'ts_ls', 'pyright',
+                        'rust_analyzer', 'html', 'tailwindcss'
+                    },
+                    automatic_installation = true,
+                }
+            },
             { "folke/neodev.nvim", ft = "lua", opts = {} },
             {
                 "j-hui/fidget.nvim",
@@ -38,20 +42,31 @@ return {
             {
                 "nvimtools/none-ls.nvim",
                 event = { "BufReadPre", "BufNewFile" },
+                dependencies = { "nvim-lua/plenary.nvim" },
                 config = function()
                     local null_ls = require('null-ls')
+
+                    local function has_prettierrc_file()
+                        local markers = { ".prettierrc", ".prettierrc.json", ".prettierrc.js", "prettier.config.js" }
+                        for _, marker in ipairs(markers) do
+                            if vim.fn.filereadable(marker) == 1 then
+                                return true
+                            end
+                        end
+                        return false
+                    end
+
                     null_ls.setup({
                         sources = {
-                            null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "120" } }),
+                            null_ls.builtins.formatting.black.with({
+                                extra_args = { "--line-length", "120" }
+                            }),
                             null_ls.builtins.formatting.prettier.with({
                                 prefer_local = "node_modules/.bin",
-                                dynamic_command = function(params)
-                                    if has_prettierrc_file() then
-                                        return {}
-                                    else
-                                        return { "--tab-width", "2", "--print-width", "120", "--use-tabs", "false" }
-                                    end
+                                condition = function()
+                                    return not has_prettierrc_file()
                                 end,
+                                extra_args = { "--tab-width", "2", "--print-width", "120" }
                             }),
                         }
                     })
@@ -62,6 +77,7 @@ return {
         config = function()
             local lspconfig = require('lspconfig')
 
+            -- Diagnostic configuration
             vim.diagnostic.config({
                 virtual_text = false,
                 signs = {
@@ -75,9 +91,15 @@ return {
                 underline = true,
                 update_in_insert = false,
                 severity_sort = true,
+                float = {
+                    border = "rounded",
+                    source = "always",
+                    header = "",
+                    prefix = "",
+                },
             })
 
-            -- Custom diagnostic sign highlights
+            -- Diagnostic sign highlights
             local hl_groups = {
                 DiagnosticUnderlineError = { undercurl = true, sp = "#ff0000" },
                 DiagnosticUnderlineWarn  = { undercurl = true, sp = "#ffaa00" },
@@ -88,48 +110,152 @@ return {
                 vim.api.nvim_set_hl(0, hl, opts)
             end
 
+            -- MODERN: Use LspAttach autocmd instead of on_attach
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+                callback = function(event)
+                    local map = function(keys, func, desc)
+                        vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+                    end
+
+                    -- Navigation
+                    map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+                    map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+                    map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+                    map("gy", require("telescope.builtin").lsp_type_definitions, "[G]oto T[y]pe Definition")
+                    map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+                    -- Actions
+                    map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+                    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+                    map("K", vim.lsp.buf.hover, "Hover Documentation")
+
+                    -- Format (modern API)
+                    map("<leader>fb", function()
+                        vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
+                    end, "[F]ormat [B]uffer")
+
+                    -- Symbols
+                    map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+                    map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+
+                    -- Diagnostics on hover
+                    vim.api.nvim_create_autocmd("CursorHold", {
+                        buffer = event.buf,
+                        callback = function()
+                            local opts = {
+                                focusable = false,
+                                close_events = { "CursorMoved", "InsertEnter", "BufHidden" },
+                                border = "rounded",
+                                source = "always",
+                                prefix = " ",
+                                scope = "cursor",
+                            }
+                            vim.diagnostic.open_float(nil, opts)
+                        end
+                    })
+
+                    -- Highlight references under cursor
+                    local client = vim.lsp.get_client_by_id(event.data.client_id)
+                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                        local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+                        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                            buffer = event.buf,
+                            group = highlight_augroup,
+                            callback = vim.lsp.buf.document_highlight,
+                        })
+                        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                            buffer = event.buf,
+                            group = highlight_augroup,
+                            callback = vim.lsp.buf.clear_references,
+                        })
+
+                        vim.api.nvim_create_autocmd("LspDetach", {
+                            group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+                            callback = function(event2)
+                                vim.lsp.buf.clear_references()
+                                vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
+                            end,
+                        })
+                    end
+
+                    -- Inlay hints (Neovim 0.10+)
+                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                        map("<leader>th", function()
+                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+                        end, "[T]oggle Inlay [H]ints")
+                    end
+                end,
+            })
+
+            -- Capabilities
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = vim.tbl_deep_extend("force", capabilities, require('blink.cmp').get_lsp_capabilities())
+
+            -- Server configurations
             local servers = {
                 emmet_ls = {},
                 tailwindcss = {},
                 clangd = {},
                 ts_ls = {},
                 gopls = {},
-                pyright = {},
-                rust_analyzer = {},
+                pyright = {
+                    settings = {
+                        python = {
+                            analysis = {
+                                autoSearchPaths = true,
+                                diagnosticMode = "workspace",
+                                useLibraryCodeForTypes = true
+                            }
+                        }
+                    }
+                },
+                rust_analyzer = {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = {
+                                command = "clippy"
+                            }
+                        }
+                    }
+                },
                 html = {},
                 lua_ls = {
-                    settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
+                    settings = {
+                        Lua = {
+                            runtime = { version = "LuaJIT" },
+                            workspace = {
+                                checkThirdParty = false,
+                                library = {
+                                    vim.env.VIMRUNTIME,
+                                    "${3rd}/luv/library",
+                                }
+                            },
+                            completion = {
+                                callSnippet = "Replace"
+                            },
+                            diagnostics = {
+                                globals = { "vim" },
+                                disable = { "missing-fields" }
+                            },
+                            hint = {
+                                enable = true,
+                            },
+                        }
+                    }
                 }
             }
 
-            local on_attach = function(_, bufnr)
-                vim.api.nvim_create_autocmd("CursorHold", {
-                    buffer = bufnr,
-                    callback = function()
-                        local diagnostics = vim.diagnostic.get(bufnr, { lnum = vim.fn.line('.') - 1 })
-                        if #diagnostics > 0 then
-                            vim.diagnostic.open_float(nil, {
-                                focusable = false,
-                                close_events = { "CursorMoved", "InsertEnter" },
-                                border = 'rounded',
-                                source = 'always',
-                                prefix = '',
-                                scope = 'cursor',
-                            })
-                        end
-                    end
-                })
-            end
-
-            local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-            for server, config in pairs(servers) do
-                lspconfig[server].setup({
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                    settings = config.settings,
-                })
-            end
+            -- Setup Mason handlers
+            require("mason-lspconfig").setup({
+                handlers = {
+                    function(server_name)
+                        local server = servers[server_name] or {}
+                        server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+                        lspconfig[server_name].setup(server)
+                    end,
+                },
+            })
         end,
     },
 
@@ -137,6 +263,7 @@ return {
         "L3MON4D3/LuaSnip",
         dependencies = { "rafamadriz/friendly-snippets" },
         event = "InsertEnter",
+        build = "make install_jsregexp",
         config = function()
             require("luasnip.loaders.from_lua").lazy_load({
                 paths = { vim.fn.stdpath("config") .. "/lua/snippets" }
@@ -144,12 +271,18 @@ return {
             require("luasnip.loaders.from_vscode").lazy_load()
 
             local luasnip = require("luasnip")
-            vim.keymap.set({ 'i', 's' }, '<C-k>', function()
-                if luasnip.jumpable(-1) then luasnip.jump(-1) end
-            end, { silent = true })
-            vim.keymap.set({ 'i', 's' }, '<C-j>', function()
-                if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
-            end, { silent = true })
+
+            vim.keymap.set({ "i", "s" }, "<C-k>", function()
+                if luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                end
+            end, { silent = true, desc = "LuaSnip: Jump backward" })
+
+            vim.keymap.set({ "i", "s" }, "<C-j>", function()
+                if luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
+                end
+            end, { silent = true, desc = "LuaSnip: Expand or jump forward" })
         end
     },
 
@@ -165,65 +298,28 @@ return {
                 nerd_font_variant = 'mono'
             },
             sources = {
-                default = { 'lsp', 'path', 'buffer', 'snippets' },
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
                     lsp = {
                         name = 'LSP',
                         module = 'blink.cmp.sources.lsp',
                         score_offset = 10,
-                        transform_items = function(ctx, items)
-                            local seen = {}
-                            local deduplicated = {}
-                            for _, item in ipairs(items) do
-                                local key = item.label .. (item.detail or "")
-                                if not seen[key] then
-                                    seen[key] = true
-                                    item.source_name = "LSP"
-                                    table.insert(deduplicated, item)
-                                end
-                            end
-                            return deduplicated
-                        end
-                    },
-                    buffer = {
-                        name = 'Buffer',
-                        module = 'blink.cmp.sources.buffer',
-                        score_offset = -5,
-                        min_keyword_length = 3,
-                        transform_items = function(ctx, items)
-                            local seen = {}
-                            local deduplicated = {}
-                            for _, item in ipairs(items) do
-                                if not seen[item.label] then
-                                    seen[item.label] = true
-                                    item.source_name = "Buffer"
-                                    table.insert(deduplicated, item)
-                                end
-                            end
-                            return deduplicated
-                        end
                     },
                     path = {
                         name = 'Path',
                         module = 'blink.cmp.sources.path',
-                        score_offset = 0,
-                        transform_items = function(ctx, items)
-                            for _, item in ipairs(items) do
-                                item.source_name = "Path"
-                            end
-                            return items
-                        end
+                        score_offset = 3,
                     },
                     snippets = {
                         name = 'Snippets',
                         module = 'blink.cmp.sources.snippets',
                         score_offset = 5,
-                        transform_items = function(ctx, items)
-                            for _, item in ipairs(items) do
-                                item.source_name = "Snippet"
-                            end
-                            return items
-                        end
+                    },
+                    buffer = {
+                        name = 'Buffer',
+                        module = 'blink.cmp.sources.buffer',
+                        score_offset = -3,
+                        min_keyword_length = 3,
                     }
                 }
             },
@@ -234,25 +330,23 @@ return {
                 menu = {
                     draw = {
                         columns = {
-                            { "label",       "label_description", gap = 1 },
-                            { "kind_icon",   "kind",              gap = 1 },
-                            { "source_name", gap = 1 },
+                            { "label",     "label_description", gap = 1 },
+                            { "kind_icon", "kind",              gap = 1 },
                         }
                     },
-                    border = "single",
+                    border = "rounded",
                 },
                 documentation = {
                     auto_show = true,
-                    auto_show_delay_ms = 500,
-                    window = { border = 'single' }
+                    auto_show_delay_ms = 200,
+                    window = { border = 'rounded' }
                 },
-                ghost_text = { enabled = false },
+                ghost_text = { enabled = true },
             },
             signature = {
                 enabled = true,
-                window = { border = "single" }
+                window = { border = "rounded" }
             }
         }
     }
-
 }

@@ -1,14 +1,15 @@
 return {
     "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope" },
+    cmd = "Telescope",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
-            build =
-            "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-            cond = vim.fn.executable("cmake") == 1,
+            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+            cond = function()
+                return vim.fn.executable("cmake") == 1
+            end,
         }
     },
     keys = {
@@ -19,17 +20,34 @@ return {
         { "<leader>sd", "<cmd>Telescope diagnostics<cr>",                           desc = "[S]earch [D]iagnostics" },
         { "<leader>sr", "<cmd>Telescope oldfiles<cr>",                              desc = "[S]earch [R]ecent files" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>",                               desc = "[S]earch [K]eymaps" },
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>",                             desc = "[S]earch [H]elp" },
+        { "<leader>sw", "<cmd>Telescope grep_string<cr>",                           desc = "[S]earch current [W]ord" },
         { "<leader>gr", "<cmd>Telescope lsp_references<cr>",                        desc = "[G]oto [R]eferences" },
         { "<leader>gd", "<cmd>Telescope lsp_definitions<cr>",                       desc = "[G]oto [D]efinition" },
         { "<leader>gi", "<cmd>Telescope lsp_implementations<cr>",                   desc = "[G]oto [I]mplementation" },
         { "<leader>ut", function() require('telescope').extensions.undo.undo() end, desc = "[U]ndo [T]ree" },
+        { "<leader>/",  "<cmd>Telescope current_buffer_fuzzy_find<cr>",             desc = "Fuzzy search in buffer" },
     },
     config = function()
+        local actions = require("telescope.actions")
         local action_layout = require("telescope.actions.layout")
+
         require('telescope').setup({
             defaults = {
-                prompt_prefix = ' ',
-                selection_caret = ' ',
+                prompt_prefix = "   ",
+                selection_caret = " ",
+                entry_prefix = "  ",
+                sorting_strategy = "ascending",
+                layout_strategy = "horizontal",
+                layout_config = {
+                    horizontal = {
+                        prompt_position = "top",
+                        preview_width = 0.55,
+                    },
+                    width = 0.87,
+                    height = 0.80,
+                    preview_cutoff = 120,
+                },
                 vimgrep_arguments = {
                     "rg",
                     "--color=never",
@@ -46,16 +64,17 @@ return {
                     "--glob=!**/.vscode/*",
                     "--glob=!**/build/*",
                     "--glob=!**/dist/*",
-                    "--glob=!**/yarn.lock",
-                    "--glob=!**/package-lock.json",
                     "--glob=!**/node_modules/*",
                 },
                 mappings = {
                     n = {
                         ["<M-p>"] = action_layout.toggle_preview,
+                        ["q"] = actions.close,
                     },
                     i = {
                         ["<M-p>"] = action_layout.toggle_preview,
+                        ["<C-u>"] = false,
+                        ["<C-d>"] = false,
                     },
                 },
                 file_ignore_patterns = {
@@ -63,7 +82,13 @@ return {
                     ".git/",
                     "build/",
                     "dist/",
+                    "%.lock",
                 },
+                path_display = { "truncate" },
+                winblend = 0,
+                border = {},
+                borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                color_devicons = true,
             },
             pickers = {
                 find_files = {
@@ -74,18 +99,12 @@ return {
                         "--hidden",
                         "--glob=!**/.git/*",
                         "--glob=!**/node_modules/*",
-                        "--glob=!**/.idea/*",
-                        "--glob=!**/.vscode/*",
-                        "--glob=!**/build/*",
-                        "--glob=!**/dist/*",
-                        "--glob=!**/yarn.lock",
-                        "--glob=!**/package-lock.json",
                     },
                 },
             },
         })
 
-        require('telescope').load_extension('undo')
-        require('telescope').load_extension('fzf')
+        pcall(require('telescope').load_extension, 'undo')
+        pcall(require('telescope').load_extension, 'fzf')
     end
 }
