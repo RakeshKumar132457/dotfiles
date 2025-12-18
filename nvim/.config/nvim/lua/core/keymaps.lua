@@ -5,7 +5,6 @@ M.setup = function()
 
     -- Existing
     map({ 'n', 'v' }, '<leader>y', '"+y', { desc = "Yank to system clipboard" })
-    map('n', '<leader>cr', ':lua require"utils.runner".run()<CR>', { desc = "[C]ode [R]unner" })
 
     -- Recommended additions
     map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = "Clear search highlights" })

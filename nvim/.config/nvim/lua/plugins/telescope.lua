@@ -65,6 +65,8 @@ return {
                     "--glob=!**/build/*",
                     "--glob=!**/dist/*",
                     "--glob=!**/node_modules/*",
+                    "--glob=!**/target/*",
+                    "--glob=!**/*.lock/*",
                 },
                 mappings = {
                     n = {
@@ -76,13 +78,6 @@ return {
                         ["<C-u>"] = false,
                         ["<C-d>"] = false,
                     },
-                },
-                file_ignore_patterns = {
-                    "node_modules",
-                    ".git/",
-                    "build/",
-                    "dist/",
-                    "%.lock",
                 },
                 path_display = { "truncate" },
                 winblend = 0,
@@ -99,6 +94,7 @@ return {
                         "--hidden",
                         "--glob=!**/.git/*",
                         "--glob=!**/node_modules/*",
+                        "--glob=!**/target/*",
                     },
                 },
             },
