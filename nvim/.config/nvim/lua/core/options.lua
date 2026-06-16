@@ -41,7 +41,6 @@ M.setup = function()
         foldtext = "",
         foldcolumn = "1",
         timeoutlen = 300,
-        clipboard = "unnamedplus",
     }
 
     for k, v in pairs(options) do

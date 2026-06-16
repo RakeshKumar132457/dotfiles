@@ -23,13 +23,13 @@ return {
                 "williamboman/mason-lspconfig.nvim",
                 opts = {
                     ensure_installed = {
-                        'lua_ls', 'clangd', 'ts_ls', 'pyright',
+                        'lua_ls', 'clangd', 'pyright',
                         'rust_analyzer', 'tailwindcss'
                     },
                     automatic_installation = true,
                 }
             },
-            { "folke/neodev.nvim", ft = "lua", opts = {} },
+            { "folke/lazydev.nvim", ft = "lua", opts = {} },
             {
                 "j-hui/fidget.nvim",
                 event = "LspAttach",
@@ -38,39 +38,6 @@ return {
                         window = { winblend = 0 }
                     }
                 }
-            },
-            {
-                "nvimtools/none-ls.nvim",
-                event = "VeryLazy",
-                dependencies = { "nvim-lua/plenary.nvim" },
-                config = function()
-                    local null_ls = require('null-ls')
-
-                    local function has_prettierrc_file()
-                        local markers = { ".prettierrc", ".prettierrc.json", ".prettierrc.js", "prettier.config.js" }
-                        for _, marker in ipairs(markers) do
-                            if vim.fn.filereadable(marker) == 1 then
-                                return true
-                            end
-                        end
-                        return false
-                    end
-
-                    null_ls.setup({
-                        sources = {
-                            null_ls.builtins.formatting.black.with({
-                                extra_args = { "--line-length", "120" }
-                            }),
-                            null_ls.builtins.formatting.prettier.with({
-                                prefer_local = "node_modules/.bin",
-                                condition = function()
-                                    return not has_prettierrc_file()
-                                end,
-                                extra_args = { "--tab-width", "2", "--print-width", "120" }
-                            }),
-                        }
-                    })
-                end
             },
             'saghen/blink.cmp'
         },
@@ -124,14 +91,11 @@ return {
                     map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
                     -- Actions
-                    map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+                    vim.keymap.set("n", "<leader>rn", function()
+                        return ":" .. vim.v.count1 .. "IncRename " .. vim.fn.expand("<cword>")
+                    end, { expr = true, buffer = event.buf, desc = "LSP: [R]e[n]ame (Incremental)" })
                     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
                     map("K", vim.lsp.buf.hover, "Hover Documentation")
-
-                    -- Format
-                    map("<leader>fb", function()
-                        vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
-                    end, "[F]ormat [B]uffer")
 
                     -- Symbols
                     map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
@@ -155,7 +119,7 @@ return {
 
                     -- Highlight references
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
-                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                         local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
                         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                             buffer = event.buf,
@@ -178,7 +142,7 @@ return {
                     end
 
                     -- Inlay hints
-                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
                         map("<leader>th", function()
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
                         end, "[T]oggle Inlay [H]ints")
@@ -195,7 +159,6 @@ return {
                 emmet_ls = {},
                 tailwindcss = {},
                 clangd = {},
-                ts_ls = {},
                 gopls = {},
                 pyright = {
                     settings = {

@@ -1,5 +1,5 @@
-CompileFlags:
-  Add: [-Wall, -Wextra, -Werror]
+- CompileFlags:
+    Add: [-Wall, -Wextra, -Werror]
 
 - If:
     PathMatch: .*.c$
