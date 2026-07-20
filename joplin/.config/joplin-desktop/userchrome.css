@@ -1,24 +1,648 @@
-/* For styling the entire Joplin app (except the rendered Markdown, which is defined in `userstyle.css`) */
+/* ═══════════════════════════════════════════════════════════
+   JOPLIN — OBSIDIAN-LIKE THEME (userchrome.css)
+   App chrome: sidebar, note list, toolbar, editor pane
+   Uses Iosevka Nerd Font throughout to preserve icons
+   ═══════════════════════════════════════════════════════════ */
+
 :root {
-	--font-jetbrains: JetBrainsMono Nerd Font Mono;
-	--font-iosevka: Iosevka Nerd Font Mono;
-	--font-size: 15px;
+	/* ── Fonts (Iosevka everywhere for Nerd Font icons) ── */
+	--font-mono: "IosevkaTerm Nerd Font Mono", "JetBrainsMono Nerd Font Mono", monospace;
+	--font-size: 14px;
+
+	/* ── Obsidian-inspired dark palette (Catppuccin Mocha) ── */
+	--bg-primary: #1e1e2e;
+	--bg-secondary: #181825;
+	--bg-tertiary: #11111b;
+	--bg-hover: #313244;
+	--bg-active: #45475a;
+	--text-primary: #cdd6f4;
+	--text-secondary: #a6adc8;
+	--text-faint: #6c7086;
+	--accent: #cba6f7;
+	--accent-hover: #b4befe;
+	--border-color: #313244;
+	--scrollbar-thumb: #45475a;
+	--scrollbar-track: transparent;
 }
 
-
+/* ── Global ── */
 *,
 #joplin-container-body {
-	font-family: var(--font-iosevka) !important;
+	font-family: var(--font-mono) !important;
 	font-size: var(--font-size) !important;
+	scrollbar-width: thin;
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-span.cm-comment {
-	font-family: var(--font-iosevka) !important;
-	border-radius: 0 !important ;
-	border: 0 !important;
+/* ── Sidebar ── */
+.rli-sideBar {
+	background-color: var(--bg-secondary) !important;
 }
 
-span.cm-jn-monospace {
-	font-family: var(--font-iosevka) !important;
-	border: 0 !important;
+.rli-sideBar .list-item,
+.rli-sideBar span {
+	color: var(--text-secondary) !important;
+	transition: all 0.15s ease;
+}
+
+.rli-sideBar .list-item:hover {
+	background-color: var(--bg-hover) !important;
+	color: var(--text-primary) !important;
+}
+
+.rli-sideBar .selected {
+	background-color: var(--bg-active) !important;
+	color: var(--accent) !important;
+	border-left: 3px solid var(--accent) !important;
+}
+
+/* ── Note list panel ── */
+.rli-noteList {
+	background-color: var(--bg-primary) !important;
+}
+
+.rli-noteList .list-item {
+	border-bottom: 1px solid var(--border-color) !important;
+	transition: background-color 0.15s ease;
+}
+
+.rli-noteList .list-item:hover {
+	background-color: var(--bg-hover) !important;
+}
+
+.rli-noteList .list-item.selected {
+	background-color: var(--bg-active) !important;
+	border-left: 3px solid var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EDITOR PANE — Full CodeMirror Styling
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Editor container ── */
+.rli-editor {
+	background-color: var(--bg-secondary) !important;
+}
+
+/* ── CodeMirror base (CM5 & CM6 support) ── */
+.cm-editor,
+.CodeMirror {
+	background-color: var(--bg-secondary) !important;
+}
+
+.cm-editor .cm-scroller,
+.CodeMirror-scroll,
+.CodeMirror-lines {
+	background-color: var(--bg-primary) !important;
+	color: var(--text-primary) !important;
+	font-family: var(--font-mono) !important;
+	font-size: 15px !important;
+	line-height: 1.8 !important;
+	letter-spacing: 0.3px !important;
+	padding: 12px 24px !important;
+	border-radius: 6px !important;
+	margin: 8px !important;
+	border: 1px solid var(--border-color) !important;
+}
+
+/* ── Content area padding ── */
+.cm-editor .cm-content,
+.CodeMirror-code {
+	padding: 12px 8px !important;
+	max-width: 800px !important;
+}
+
+/* ── Gutter (line numbers area) ── */
+.cm-editor .cm-gutters {
+	background-color: var(--bg-secondary) !important;
+	border-right: 1px solid var(--border-color) !important;
+	color: var(--text-faint) !important;
+}
+
+.cm-editor .cm-lineNumbers .cm-gutterElement {
+	color: var(--text-faint) !important;
+	font-size: 12px !important;
+	padding: 0 12px 0 8px !important;
+	min-width: 3em !important;
+}
+
+/* Active line number */
+.cm-editor .cm-activeLineGutter {
+	background-color: rgba(203, 166, 247, 0.08) !important;
+	color: var(--accent) !important;
+}
+
+/* ── Cursor ── */
+.cm-editor .cm-cursor,
+.cm-editor .cm-dropCursor {
+	border-left-color: var(--accent) !important;
+	border-left-width: 2px !important;
+}
+
+/* ── Active line highlight ── */
+.cm-editor .cm-activeLine {
+	background-color: rgba(203, 166, 247, 0.04) !important;
+}
+
+/* ── Selection ── */
+.cm-editor .cm-selectionBackground,
+.cm-editor ::selection {
+	background-color: rgba(203, 166, 247, 0.2) !important;
+}
+
+/* ── Matching brackets ── */
+.cm-editor .cm-matchingBracket {
+	background-color: rgba(166, 227, 161, 0.25) !important;
+	color: #a6e3a1 !important;
+	outline: 1px solid rgba(166, 227, 161, 0.4) !important;
+	border-radius: 2px !important;
+}
+
+.cm-editor .cm-nonmatchingBracket {
+	background-color: rgba(243, 139, 168, 0.25) !important;
+	color: #f38ba8 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ICON SPACING & MARGINS
+   ═══════════════════════════════════════════════════════════ */
+
+/* Sidebar items — centered, 4px icon gap */
+.rli-sideBar .list-item {
+	display: flex !important;
+	align-items: center !important;
+}
+
+.rli-sideBar i,
+.rli-sideBar .fa-icon,
+.rli-sideBar button i,
+.rli-sideBar span[class*="icon"],
+.rli-sideBar .list-item i,
+.rli-sideBar .list-item span.fas,
+.rli-sideBar .list-item span.far,
+.rli-sideBar .list-item span.fa {
+	margin-right: 4px !important;
+	display: inline-block !important;
+}
+
+/* Note list items — centered, 4px icon gap */
+.rli-noteList .list-item {
+	display: flex !important;
+	align-items: center !important;
+}
+
+.rli-noteList i,
+.rli-noteList .fa-icon,
+.rli-noteList span.fas,
+.rli-noteList span.far,
+.rli-noteList span.fa {
+	margin-right: 4px !important;
+}
+
+/* Toolbar — centered, 4px icon gap */
+.editor-toolbar {
+	display: flex !important;
+	align-items: center !important;
+}
+
+.editor-toolbar button,
+.editor-toolbar a {
+	margin: 0 2px !important;
+	padding: 4px 6px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+}
+
+.editor-toolbar i,
+.editor-toolbar span.fas,
+.editor-toolbar span.far,
+.editor-toolbar span.fa {
+	margin-right: 4px !important;
+}
+
+/* Global icon spacing */
+i.fas, i.far, i.fa, i.fab, .fa {
+	margin-right: 4px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MARKDOWN SYNTAX HIGHLIGHTING (1:1 with Preview)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Headings (exact CM6 classes from dev tools) ── */
+
+/* H1: Pink */
+.cm-h1 .tok-heading {
+	color: #f38ba8 !important;
+	font-weight: 700 !important;
+	font-size: 1.6em !important;
+}
+
+/* H2: Purple */
+.cm-h2 .tok-heading {
+	color: #cba6f7 !important;
+	font-weight: 700 !important;
+	font-size: 1.35em !important;
+}
+
+/* H3: Blue */
+.cm-h3 .tok-heading {
+	color: #89b4fa !important;
+	font-weight: 700 !important;
+	font-size: 1.15em !important;
+}
+
+/* H4: Teal */
+.cm-h4 .tok-heading {
+	color: #89dceb !important;
+	font-weight: 700 !important;
+	font-size: 1.05em !important;
+}
+
+/* H5/H6: Peach */
+.cm-h5 .tok-heading,
+.cm-h6 .tok-heading {
+	color: #fab387 !important;
+	font-weight: 700 !important;
+}
+
+/* Dim the ## markers */
+.tok-meta {
+	opacity: 0.4 !important;
+}
+
+/* ── Bold (matches preview: Pink #f38ba8) ── */
+.cm-editor .cm-strong,
+.tok-strong {
+	color: #f38ba8 !important;
+	font-weight: 700 !important;
+}
+
+/* ── Italic (matches preview: Peach #fab387) ── */
+.cm-editor .cm-em,
+.tok-emphasis {
+	color: #fab387 !important;
+	font-style: italic !important;
+}
+
+/* ── Strikethrough ── */
+.cm-editor .cm-strikethrough,
+.tok-strikethrough {
+	color: var(--text-faint) !important;
+	text-decoration: line-through !important;
+}
+
+/* Dim formatting chars (**bold**, *italic*, ~~strike~~) */
+.cm-editor .cm-formatting-strong,
+.cm-editor .cm-formatting-em,
+.cm-editor .cm-formatting-strikethrough,
+.tok-processingInstruction {
+	opacity: 0.4 !important;
+}
+
+/* ── Links & URLs ── */
+.cm-editor .cm-url {
+	color: #89b4fa !important;
+	text-decoration: underline !important;
+	text-decoration-color: rgba(137, 180, 250, 0.3) !important;
+}
+
+.cm-editor .cm-link {
+	color: #89b4fa !important;
+}
+
+.cm-editor .cm-formatting-link,
+.cm-editor .cm-formatting-link-string {
+	color: var(--text-faint) !important;
+}
+
+/* ── Inline code (editor - CodeMirror 6 + legacy CM5) ── */
+.cm-inlineCode,
+.cm-editor .cm-inlineCode,
+.cm-line .cm-inlineCode,
+span.cm-inlineCode,
+[class*="inlineCode"],
+[class*="inline-code"],
+.cm-editor span[class*="monospace"],
+.cm-editor span[class*="comment"],
+.cm-editor span[class*="code"],
+.CodeMirror span[class*="monospace"],
+.CodeMirror span[class*="comment"],
+.CodeMirror span[class*="code"],
+div.CodeMirror-lines span.cm-comment,
+div.CodeMirror-lines span.cm-string {
+	font-family: var(--font-mono) !important;
+	background-color: rgba(166, 227, 161, 0.1) !important;
+	color: #a6e3a1 !important;
+	border: 1px solid rgba(166, 227, 161, 0.2) !important;
+	border-bottom: 2px solid rgba(166, 227, 161, 0.35) !important;
+	border-radius: 0px !important;
+	padding: 2px 4px !important;
+	font-size: 0.9em !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Backticks blend seamlessly into the sharp box */
+.cm-formatting-code,
+.cm-editor .cm-formatting-code,
+.cm-line .cm-formatting-code,
+.CodeMirror span[class*="formatting-code"],
+[class*="formatting-code"] {
+	font-family: var(--font-mono) !important;
+	background-color: rgba(166, 227, 161, 0.1) !important;
+	color: rgba(166, 227, 161, 0.5) !important;
+	border-top: 1px solid rgba(166, 227, 161, 0.2) !important;
+	border-bottom: 2px solid rgba(166, 227, 161, 0.35) !important;
+	border-radius: 0px !important;
+	opacity: 1 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CODE BLOCKS (fenced) — Premium Editor Style
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Fence markers (``` lines) ── */
+.cm-editor .cm-jn-code-block-open,
+.cm-editor .cm-jn-code-block-close {
+	background-color: #11111b !important;
+	color: var(--text-faint) !important;
+	font-size: 0.85em !important;
+	opacity: 0.6 !important;
+	border-radius: 8px 8px 0 0 !important;
+	padding: 6px 12px !important;
+	display: block !important;
+}
+
+.cm-editor .cm-jn-code-block-close {
+	border-radius: 0 0 8px 8px !important;
+}
+
+/* ── Code block body ── */
+.cm-editor .cm-jn-code-block {
+	background-color: #11111b !important;
+	color: #cdd6f4 !important;
+	border-left: 3px solid #cba6f7 !important;
+	padding: 2px 16px !important;
+	font-size: 0.92em !important;
+	line-height: 1.6 !important;
+}
+
+/* ── Syntax highlighting inside code blocks ── */
+
+/* Keywords: if, else, return, function, const, let, etc. */
+.cm-editor .cm-jn-code-block .cm-keyword,
+.cm-editor .cm-keyword {
+	color: #cba6f7 !important;
+	font-weight: 600 !important;
+}
+
+/* Strings */
+.cm-editor .cm-jn-code-block .cm-string,
+.cm-editor .cm-string {
+	color: #a6e3a1 !important;
+}
+
+/* Numbers */
+.cm-editor .cm-jn-code-block .cm-number,
+.cm-editor .cm-number {
+	color: #fab387 !important;
+}
+
+/* Comments */
+.cm-editor .cm-jn-code-block .cm-comment {
+	color: #6c7086 !important;
+	font-style: italic !important;
+	background: none !important;
+	padding: 0 !important;
+}
+
+/* Functions / method calls */
+.cm-editor .cm-jn-code-block .cm-callee,
+.cm-editor .cm-jn-code-block .cm-variableName\.function,
+.cm-editor .cm-callee {
+	color: #89b4fa !important;
+}
+
+/* Variables */
+.cm-editor .cm-jn-code-block .cm-variableName,
+.cm-editor .cm-variableName {
+	color: #cdd6f4 !important;
+}
+
+/* Types / classes */
+.cm-editor .cm-jn-code-block .cm-typeName,
+.cm-editor .cm-typeName {
+	color: #f9e2af !important;
+}
+
+/* Operators (+, -, =, =>, etc.) */
+.cm-editor .cm-jn-code-block .cm-operator,
+.cm-editor .cm-operator {
+	color: #89dceb !important;
+}
+
+/* Punctuation (brackets, parens, semicolons) */
+.cm-editor .cm-jn-code-block .cm-punctuation,
+.cm-editor .cm-punctuation {
+	color: #7f849c !important;
+}
+
+/* Properties (object.property) */
+.cm-editor .cm-jn-code-block .cm-propertyName,
+.cm-editor .cm-propertyName {
+	color: #89b4fa !important;
+}
+
+/* Regex */
+.cm-editor .cm-jn-code-block .cm-regexp,
+.cm-editor .cm-regexp {
+	color: #f38ba8 !important;
+}
+
+/* Boolean, null, undefined */
+.cm-editor .cm-jn-code-block .cm-bool,
+.cm-editor .cm-jn-code-block .cm-null,
+.cm-editor .cm-atom,
+.cm-editor .cm-bool {
+	color: #fab387 !important;
+	font-style: italic !important;
+}
+
+/* ── Blockquotes ── */
+.cm-editor .cm-quote {
+	color: var(--text-secondary) !important;
+	border-left: 3px solid var(--accent) !important;
+	padding-left: 8px !important;
+	font-style: italic !important;
+}
+
+.cm-editor .cm-formatting-quote {
+	color: var(--accent) !important;
+	opacity: 0.6 !important;
+}
+
+/* ── Lists ── */
+.cm-editor .cm-formatting-list,
+.cm-editor .cm-formatting-list-ul,
+.cm-editor .cm-formatting-list-ol {
+	color: var(--accent) !important;
+	font-weight: 700 !important;
+}
+
+/* ── Horizontal rule ── */
+.cm-editor .cm-hr {
+	color: var(--accent) !important;
+	opacity: 0.5 !important;
+}
+
+/* ── Tags (Joplin #tags) ── */
+.cm-editor .cm-jn-hashtag {
+	color: #94e2d5 !important;
+	background-color: rgba(148, 226, 213, 0.1) !important;
+	border-radius: 3px !important;
+	padding: 1px 4px !important;
+}
+
+/* ── HTML tags in markdown ── */
+.cm-editor .cm-tag {
+	color: #f38ba8 !important;
+}
+
+.cm-editor .cm-attribute {
+	color: #fab387 !important;
+}
+
+/* ── Images/embeds ── */
+.cm-editor .cm-image,
+.cm-editor .cm-image-marker {
+	color: #f9e2af !important;
+}
+
+.cm-editor .cm-image-alt-text {
+	color: #a6e3a1 !important;
+}
+
+/* ── Search highlighting ── */
+.cm-editor .cm-searchMatch {
+	background-color: rgba(249, 226, 175, 0.3) !important;
+	outline: 1px solid rgba(249, 226, 175, 0.5) !important;
+	border-radius: 2px !important;
+}
+
+.cm-editor .cm-searchMatch-selected {
+	background-color: rgba(249, 226, 175, 0.5) !important;
+}
+
+/* ── Fold gutter ── */
+.cm-editor .cm-foldGutter {
+	color: var(--text-faint) !important;
+	padding: 0 4px !important;
+}
+
+.cm-editor .cm-foldGutter:hover {
+	color: var(--accent) !important;
+}
+
+/* ── Tooltip / Autocomplete ── */
+.cm-tooltip {
+	background-color: var(--bg-secondary) !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: 6px !important;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.cm-tooltip .cm-completionLabel {
+	color: var(--text-primary) !important;
+}
+
+.cm-tooltip .cm-completionMatchedText {
+	color: var(--accent) !important;
+	font-weight: 700 !important;
+}
+
+.cm-tooltip-autocomplete > ul > li[aria-selected] {
+	background-color: var(--bg-active) !important;
+}
+
+/* ── Toolbar ── */
+.editor-toolbar {
+	background-color: var(--bg-secondary) !important;
+	border-bottom: 1px solid var(--border-color) !important;
+}
+
+.editor-toolbar a,
+.editor-toolbar button {
+	color: var(--text-secondary) !important;
+	transition: color 0.15s ease;
+}
+
+.editor-toolbar a:hover,
+.editor-toolbar button:hover {
+	color: var(--accent) !important;
+}
+
+/* ── Dividers between panels ── */
+.rli-sideBar,
+.rli-noteList,
+.rli-editor {
+	border-right: 1px solid var(--border-color) !important;
+}
+
+/* ── Search bar ── */
+input[type="text"],
+input[type="search"] {
+	background-color: var(--bg-tertiary) !important;
+	color: var(--text-primary) !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: 6px !important;
+	padding: 6px 10px !important;
+	transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus {
+	border-color: var(--accent) !important;
+	outline: none !important;
+	box-shadow: 0 0 0 2px rgba(203, 166, 247, 0.15) !important;
+}
+
+/* ── Buttons ── */
+button {
+	background-color: #45475a !important;
+	color: #ffffff !important;
+	border: 1px solid #585b70 !important;
+	border-radius: 6px !important;
+	transition: all 0.15s ease;
+	font-weight: 600 !important;
+	padding: 4px 12px !important;
+}
+
+button:hover {
+	background-color: #585b70 !important;
+	border-color: var(--accent) !important;
+	color: #ffffff !important;
+}
+
+button:active {
+	background-color: var(--accent) !important;
+	color: var(--bg-tertiary) !important;
+}
+
+/* ── Scrollbar (webkit) ── */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb);
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--text-faint);
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
 }

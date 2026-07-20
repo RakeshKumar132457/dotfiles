@@ -1,24 +1,223 @@
-/* For styling the rendered Markdown */
+/* ═══════════════════════════════════════════════════════════
+   JOPLIN — OBSIDIAN-LIKE THEME (userstyle.css)
+   Rendered markdown: headings, text, tables, code, etc.
+   Uses Iosevka Nerd Font to match userchrome
+   ═══════════════════════════════════════════════════════════ */
+
 :root {
-	--font-jetbrains: JetBrainsMono Nerd Font Mono;
-	--font-iosevka: Iosevka Nerd Font Mono;
+	--font-mono: "IosevkaTerm Nerd Font Mono", "JetBrainsMono Nerd Font Mono", monospace;
 	--font-size: 15px;
+
+	--bg-primary: #1e1e2e;
+	--bg-code: #181825;
+	--bg-code-inline: rgba(203, 166, 247, 0.1);
+	--bg-table-header: #181825;
+	--bg-table-alt: rgba(203, 166, 247, 0.03);
+	--bg-blockquote: rgba(203, 166, 247, 0.06);
+	--text-primary: #cdd6f4;
+	--text-secondary: #a6adc8;
+	--accent: #cba6f7;
+	--accent-red: #f38ba8;
+	--accent-peach: #fab387;
+	--accent-green: #a6e3a1;
+	--accent-blue: #89b4fa;
+	--accent-yellow: #f9e2af;
+	--border-color: #313244;
 }
 
+/* ── Body ── */
 body {
-	font-family: var(--font-iosevka) !important;
+	font-family: var(--font-mono) !important;
 	font-size: var(--font-size) !important;
+	color: var(--text-primary) !important;
+	line-height: 1.7 !important;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px 40px !important;
 }
 
-code,
+/* ── Headings ── */
+h1, h2, h3, h4, h5, h6 {
+	color: var(--text-primary) !important;
+	font-weight: 700 !important;
+	margin-top: 1.5em !important;
+	margin-bottom: 0.5em !important;
+	line-height: 1.3 !important;
+}
+
+h1 {
+	font-size: 1.8em !important;
+	color: #f38ba8 !important;
+	border-bottom: 2px solid #f38ba8 !important;
+	padding-bottom: 8px !important;
+}
+
+h2 {
+	font-size: 1.45em !important;
+	color: #cba6f7 !important;
+	border-bottom: 1px solid var(--border-color) !important;
+	padding-bottom: 6px !important;
+}
+
+h3 {
+	font-size: 1.2em !important;
+	color: #89b4fa !important;
+}
+
+h4 {
+	font-size: 1.05em !important;
+	color: #89dceb !important;
+}
+
+h5, h6 {
+	font-size: 1em !important;
+	color: #fab387 !important;
+}
+
+/* ── Links ── */
+a {
+	color: var(--accent-blue) !important;
+	text-decoration: none !important;
+	border-bottom: 1px solid transparent;
+	transition: all 0.15s ease;
+}
+
+a:hover {
+	color: var(--accent) !important;
+	border-bottom-color: var(--accent) !important;
+}
+
+/* ── Bold & Italic ── */
+strong {
+	color: var(--accent-red) !important;
+	font-weight: 700 !important;
+}
+
+em {
+	color: var(--accent-peach) !important;
+}
+
+/* ── Inline code ── */
+code {
+	font-family: var(--font-mono) !important;
+	background: rgba(166, 227, 161, 0.1) !important;
+	color: var(--accent-green) !important;
+	border: 1px solid rgba(166, 227, 161, 0.2) !important;
+	border-bottom: 2px solid rgba(166, 227, 161, 0.35) !important;
+	padding: 2px 8px !important;
+	border-radius: 0 !important;
+	font-size: 0.9em !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ── Code blocks ── */
 pre {
-	font-family: var(--font-iosevka) !important;
-	border-radius: 0;
+	font-family: var(--font-mono) !important;
+	background-color: var(--bg-code) !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: 8px !important;
+	padding: 16px 20px !important;
+	overflow-x: auto;
+	line-height: 1.5 !important;
 }
 
-.code,
-.inline-code {
-	background: rgba(0, 76, 114, 0.08);
-	border: 0 !important;
-	border-radius: 0;
+pre code {
+	background: none !important;
+	padding: 0 !important;
+	border: none !important;
+	color: var(--text-primary) !important;
+	font-size: 0.88em !important;
+}
+
+/* ── Blockquotes ── */
+blockquote {
+	background: var(--bg-blockquote) !important;
+	border-left: 4px solid var(--accent) !important;
+	margin: 1em 0 !important;
+	padding: 12px 20px !important;
+	border-radius: 0 8px 8px 0 !important;
+	color: var(--text-secondary) !important;
+}
+
+blockquote p {
+	margin: 0.3em 0 !important;
+}
+
+/* ── Tables ── */
+table {
+	width: 100% !important;
+	border-collapse: collapse !important;
+	border-radius: 8px !important;
+	overflow: hidden;
+	margin: 1em 0 !important;
+}
+
+th {
+	background-color: var(--bg-table-header) !important;
+	color: var(--accent) !important;
+	font-weight: 600 !important;
+	text-align: left !important;
+	padding: 10px 14px !important;
+	border-bottom: 2px solid var(--accent) !important;
+}
+
+td {
+	padding: 8px 14px !important;
+	border-bottom: 1px solid var(--border-color) !important;
+	color: var(--text-primary) !important;
+}
+
+tr:nth-child(even) {
+	background-color: var(--bg-table-alt) !important;
+}
+
+tr:hover {
+	background-color: rgba(203, 166, 247, 0.08) !important;
+}
+
+/* ── Lists ── */
+ul, ol {
+	padding-left: 1.5em !important;
+}
+
+li {
+	margin-bottom: 0.3em !important;
+	line-height: 1.6 !important;
+}
+
+li::marker {
+	color: var(--accent) !important;
+}
+
+/* ── Checkboxes (to-do lists) ── */
+li.md-checkbox input[type="checkbox"] {
+	accent-color: var(--accent) !important;
+}
+
+/* ── Horizontal rule ── */
+hr {
+	border: none !important;
+	height: 1px !important;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--accent),
+		transparent
+	) !important;
+	margin: 2em 0 !important;
+}
+
+/* ── Images ── */
+img {
+	border-radius: 8px !important;
+	max-width: 100% !important;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ── Mark / Highlight ── */
+mark {
+	background-color: rgba(249, 226, 175, 0.3) !important;
+	color: var(--accent-yellow) !important;
+	padding: 1px 4px !important;
+	border-radius: 3px !important;
 }
